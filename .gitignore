@@ -123,7 +123,7 @@ ehthumbs_vista.db
 # Local databases and process files
 # ----------------------------
 *.sqlite
-*.sqlite3
+#*.sqlite3
 *.db
 *.pid
 *.pid.lock
