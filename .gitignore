@@ -83,7 +83,7 @@ pnpm-debug.log*
 
 # Agent-generated files downloaded from a user's private sandbox.
 # The directory is created automatically by download_sandbox_file.
-src/download/
+#src/download/
 
 # Runtime logs and temporary output.
 *.log
@@ -128,7 +128,7 @@ ehthumbs_vista.db
 *.pid
 *.pid.lock
 .local/
-/data/
+#/data/
 target/
 *.sqlite3-*
 *.db-*
