@@ -9,7 +9,7 @@
 
 ## 直接复用
 
-- 来源：[KagaribiDev/procurepilot](https://github.com/KagaribiDev/procurepilot)
+- 来源：[KagaribiDev/procurepilot](https://github.com/KagaribiDev/procurepilot)：：基础Agent/MCP/前端代码来自 [KagaribiDev/procurepilot](https://github.com/KagaribiDev/procurepilot)
 - 固定版本：`012b51ed6c1e9f80133a4add5ec170b817b9465e`
 - 许可：MIT，原文保留于根目录 LICENSE 和 third_party/procurepilot-LICENSE.txt。
 - 范围：采购 Agent、MCP 适配、沙箱与 Skills、持久化、多用户 API 和 Vue 前端的基础实现。
