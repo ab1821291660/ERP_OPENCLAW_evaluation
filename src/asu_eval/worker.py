@@ -10,8 +10,8 @@ import time
 from pathlib import Path
 from typing import Callable
 
-from .delivery import LangfuseScoreSender, ScoreSender
-from .scoring import evaluate
+from .delivery import LangfuseScoreSender, ScoreSender##===================================
+from .scoring import evaluate##===================================
 from .store import EvaluationStore, LeaseLost
 
 logger = logging.getLogger(__name__)
@@ -95,7 +95,6 @@ def main(argv: list[str] | None = None) -> int:
         pass
     print(json.dumps({"delivery_mode": args.delivery, **store.counts()}, ensure_ascii=False))
     return 0
-
-
 if __name__ == "__main__":
     raise SystemExit(main())
+

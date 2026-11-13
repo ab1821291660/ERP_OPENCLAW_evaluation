@@ -1,7 +1,6 @@
 """SQLite queue with leases, fencing tokens, and atomic score/outbox writes."""
 ##带有租约、围栏令牌和原子分数/发件箱写入的SQLite队列
 from __future__ import annotations
-
 import json
 import sqlite3
 import time
@@ -91,7 +90,8 @@ class EvaluationStore:
             raise
         finally:
             db.close()
-
+    def ________调用评估evaluate(self,actual, expected):##actual预测结果----expected真实结果
+        pass
     def enqueue(self, *, user_id: str, trace_id: str, session_id: str, actual: dict[str, Any],
                 expected: dict[str, Any], version: str, run_id: str | None = None,
                 input_data: Any = None, max_attempts: int = 5, now: float | None = None) -> str:
@@ -102,7 +102,7 @@ class EvaluationStore:
             raise ValueError("actual and expected must be JSON objects")
         if not 1 <= max_attempts <= 100:
             raise ValueError("max_attempts must be between 1 and 100")
-        evaluate(actual, expected)  # Validate the contract before accepting a durable job.#在接受一份持久的工作之前，先验证合同。。。。
+        evaluate(actual, expected)##actual预测结果----expected真实结果   ##Validate the contract before accepting a durable job.#在接受一份持久的工作之前，先验证合同。。。。
         # evaluate(actual, expected) ##===================================##===================================##===================================##===================================
         payload = dumps({"actual": actual, "expected": expected, "version": version,
                          "input": input_data, "scorer_version": SCORER_VERSION})
@@ -265,7 +265,7 @@ class EvaluationStore:
             raise ValueError("feedback comment must be at most 4000 characters")
         if corrected_expected is not None:
             validate_expected(corrected_expected)##===================================##===================================##===================================##===================================
-            evaluate({}, corrected_expected)##===================================##===================================##===================================##===================================
+            evaluate({},  corrected_expected)##===================================##===================================##===================================##===================================
             if len(dumps(corrected_expected).encode("utf-8")) > 1_000_000:
                 raise ValueError("corrected expectations must not exceed 1 MB")
         with self.connection(transaction=True) as db:

@@ -34,3 +34,4 @@ async def enqueue_completed_run(store: EvaluationStore, **kwargs: Any) -> str | 
     except Exception as exc:
         logger.warning("evaluation enqueue failed (%s)", type(exc).__name__)
         return None
+

@@ -28,10 +28,10 @@ def remote_trace_id(user_id: str, trace_id: str) -> str:
     """Tenant-scope arbitrary business IDs into valid, stable 128-bit OTEL IDs."""
     identity = json.dumps([user_id, trace_id], ensure_ascii=False, separators=(",", ":"))
     return hashlib.sha256(f"asu-trace:{identity}".encode()).hexdigest()[:32]
-
-
 def remote_span_id(job_id: str) -> str:
     return hashlib.sha256(f"asu-completed-run:{job_id}".encode()).hexdigest()[:16]
+
+
 
 
 class DeliveryError(RuntimeError):

@@ -79,12 +79,15 @@ async def observe_sse(source,##===================================
                 "observation_scope": "SSE completion snapshot; write status inferred from tool events, not database audit",
             }
             await asyncio.shield(enqueue_completed_run(##===================================##===================================
-                evaluation_store(),##===================================
-                user_id=user_id, session_id=thread_id,
-                trace_id=trace_id, run_id=trace_id, actual=actual,
-                expected={"max_latency_ms": int(os.getenv("ASU_MAX_LATENCY_MS", "900000")), "requires_approval": True},
-                version=os.getenv("ASU_RELEASE", "local") + ":" + os.getenv("ASU_PROMPT_RELEASE", "v1"),
-                input_data={"message": input_text[:8000]},
-            ))
+                                                        evaluation_store(),##===================================
+                                                        user_id=user_id,
+                                                        session_id=thread_id,
+                                                        trace_id=trace_id, ##========
+                                                        run_id=trace_id,
+                                                        actual=actual,##========##========预测结果
+                                                        expected={"max_latency_ms": int(os.getenv("ASU_MAX_LATENCY_MS", "900000")), "requires_approval": True},##========
+                                                        version=os.getenv("ASU_RELEASE", "local") + ":" + os.getenv("ASU_PROMPT_RELEASE", "v1"),
+                                                        input_data={"message": input_text[:8000]},##========
+                                                    ))
         except Exception:
             log.exception("Could not persist the evaluation snapshot; primary response already delivered")
