@@ -54,4 +54,4 @@ live 模式额外需要有效模型密钥、JWT 签名密钥、MongoDB、OpenSan
 - SQLite 作业库与 ERP 全局写锁面向本地/小规模演示，不是多节点高吞吐方案。
 - ERP 查询当前有内存筛选/分页，不具备完整生产 RBAC、多仓批次、真实物流或结算。
 - 未实现 OCR/向量 RAG、线上 LLM judge、全量 FinQA benchmark 或完整逐 token Trace 树。
-- 章节来自对比后的教学重组。对照 [对比矩阵](../COMPARISON.md) 检查本次明确补上的缺口，不将本仓库描述为所有官方内容的完整复刻。
+- 章节来自对比后的教学重组。对照 [对比矩阵](../../README的github来源COMPARISON.md) 检查本次明确补上的缺口，不将本仓库描述为所有官方内容的完整复刻。

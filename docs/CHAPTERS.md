@@ -2,7 +2,7 @@
 
 每个 `chapter-NN` 标签对应一次章节提交。提交按当前真实时间发布，不回填或伪造历史。以下顺序借鉴公开目录和共同代码结构，非官方逐章目录；第 03～14 章沿用这一声明，不另称为官方真实标题。
 
-各章命令从项目根目录运行，默认已完成 `uv sync --locked`。PowerShell 示例中若 `npm` 被执行策略拦截，可使用 `npm.cmd`；其他系统使用对应终端命令。功能差异与尚未实现项见 [公开版本对比矩阵](COMPARISON.md)。
+各章命令从项目根目录运行，默认已完成 `uv sync --locked`。PowerShell 示例中若 `npm` 被执行策略拦截，可使用 `npm.cmd`；其他系统使用对应终端命令。功能差异与尚未实现项见 [公开版本对比矩阵](../README的github来源COMPARISON.md)。
 
 Windows 终端若输出中文或 LangGraph CLI 的图标时发生编码错误，先设置 `$env:PYTHONIOENCODING = 'utf-8'`，再运行相应命令。
 
