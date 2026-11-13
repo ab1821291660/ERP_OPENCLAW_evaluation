@@ -1,23 +1,21 @@
 # 来源与实现边界
-
 ## 项目命名依据
-
 - 官方课程的中文标题为[基于Harness架构多智能体企业采购助手](https://www.mashibing.com/course/2959)。官方页面未提供公开 Git 仓库地址，未确认官方英文仓库名。
-- `ERP_OPENCLAW` 沿用多个同源公开工程的现有命名，包括 [chenqianlei51525](https://github.com/chenqianlei51525/ERP_OPENCLAW)、[junjun0228](https://github.com/junjun0228/ERP_OPENCLAW) 和 [liqiangZzz](https://github.com/liqiangZzz/ERP_OPENCLAW)。仓库名相同不等于各自原创，也不能证明学员身份。
+- `ERP_OPENCLAW` 沿用多个同源公开工程的现有命名，仓库名相同不等于各自原创，也不能证明学员身份。
 - 更早的工程痕迹见 liqiangZzz 提交 `f2be64cead24afe55333a3cdc3c6289f248147dd`：[modules.xml](https://github.com/liqiangZzz/ERP_OPENCLAW/blob/f2be64cead24afe55333a3cdc3c6289f248147dd/.idea/modules.xml) 引用了 `ERP_OPENCLAW.iml`；[misc.xml](https://github.com/liqiangZzz/ERP_OPENCLAW/blob/f2be64cead24afe55333a3cdc3c6289f248147dd/.idea/misc.xml) 的 Python SDK 名也包含 `ERP_OPENCLAW`。因此选择已有工程名，而不自行翻译中文标题。
 - 本仓库仍是公开源码整合与工程补充版；更名不改变下述实际复用来源、许可证与实现边界。
-
 ## 直接复用
-
 - 来源：[KagaribiDev/procurepilot](https://github.com/KagaribiDev/procurepilot)：：基础Agent/MCP/前端代码来自 [KagaribiDev/procurepilot](https://github.com/KagaribiDev/procurepilot)
 - 固定版本：`012b51ed6c1e9f80133a4add5ec170b817b9465e`
 - 许可：MIT，原文保留于根目录 LICENSE 和 third_party/procurepilot-LICENSE.txt。
 - 范围：采购 Agent、MCP 适配、沙箱与 Skills、持久化、多用户 API 和 Vue 前端的基础实现。
 - 未导入上游图片与数据库整包，样例数据使用本仓库合成数据。
 
-## 行为与方案参考
 
+## 行为与方案参考
 以下仓库用于交叉验证功能和发现缺口。没有将它们全部作为代码复制来源；新增模块按接口行为独立实现。
+[liqiangZzz最早吗](https://github.com/liqiangZzz/ERP_OPENCLAW)。
+[junjun0228](https://github.com/junjun0228/ERP_OPENCLAW) 和 
 
 | 参考 | 本仓库吸收的方向 |
 |---|---|
