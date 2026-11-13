@@ -15,9 +15,12 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--user-id", default="synthetic-demo")
     args = parser.parse_args(argv)
     dataset, predictions = read_json(args.dataset), read_json(args.predictions)
+    ##
     report = build_report(dataset, predictions)##===================================
     if report["missing_predictions"]:
         parser.error("cannot enqueue missing predictions")
+
+
 
 
     store = EvaluationStore(args.db)
