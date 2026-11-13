@@ -121,7 +121,7 @@ ASYNC_ANALYST_INSTRUCTIONS = """
 """
 
 
-def ________财务文档__比率分析__2个子agent(self):pass
+def ________财务文档证据__比率分析检查__2个子agent(self):pass
 FINANCE_ROLES = {"finance-researcher": "researcher",
                  "finance-reviewer": "reviewer"}
 def _versioned_prompt(name: str) -> str:

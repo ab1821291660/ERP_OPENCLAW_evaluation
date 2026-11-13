@@ -81,6 +81,8 @@ def validate_expected(expected: dict[str, Any]) -> None:##----expected真实结�
 
 def ________调用评估evaluate(actual, expected):##actual预测结果----expected真实结果
     pass
+# evaluate(actual, expected)  # Validate the contract before accepting a durable job.#在接受一份持久的工作之前，先验证合同。。。。
+# # evaluate(actual, expected) ##===================================##===================================##===================================##===================================
 def evaluate(actual: dict[str, Any], expected: dict[str, Any]) -> list[Score]:
     """Missing execution evidence fails applicable checks; omitted expectations skip checks."""
     validate_expected(expected)##expected真实结果##===================================

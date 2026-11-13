@@ -33,10 +33,15 @@ class EvaluationWorker:
             try:
 
 
+                # evaluate(actual, expected)  # Validate the contract before accepting a durable job.#在接受一份持久的工作之前，先验证合同。。。。
+                # # evaluate(actual, expected) ##===================================##===================================##===================================##===================================
                 scores = evaluate(job["payload"]["actual"], job["payload"]["expected"])##还是本地打分呀##===================================##===================================
 
 
-                self.store.complete_job(job["id"], job["lease_token"], scores, now=self.clock())##===================================
+                self.store.complete_job(job["id"],
+                                        job["lease_token"],
+                                        scores,
+                                        now=self.clock())##===================================
             except LeaseLost:
                 logger.warning("evaluation lease lost; a later claim will recover it")
             except Exception as exc:
