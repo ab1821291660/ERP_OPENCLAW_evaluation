@@ -20,8 +20,6 @@ REPORT_DIR = ROOT / "reports"
 WEB_URL = os.getenv("ERP_WEB_URL", "http://127.0.0.1:8090")
 JAVA_URL = os.getenv("ERP_JAVA_URL", "http://127.0.0.1:8080/api")
 MCP_URL = os.getenv("ERP_MCP_URL", "http://127.0.0.1:8000/mcp")
-
-
 def percentile(values: list[float], p: float) -> float | None:
     if not values:
         return None
@@ -32,7 +30,7 @@ def percentile(values: list[float], p: float) -> float | None:
 
 async def timed_get(client: httpx.AsyncClient, url: str) -> float:
     started = time.perf_counter()
-    response = await client.get(url)
+    response = await client.get(url)##===================================
     response.raise_for_status()
     return time.perf_counter() - started
 
@@ -55,15 +53,15 @@ async def stream_sample(client: httpx.AsyncClient) -> dict:
     try:
         async with client.stream(
             "POST",
-            f"{WEB_URL}/api/chat/stream",
+            f"{WEB_URL}/api/chat/stream",##===================================##===================================##===================================
             headers=headers,
-            json={"message": "你好，请用一句话介绍你的能力。", "thread_id": None},
+            json={"message": "你好，请用一句话介绍你的能力。", "thread_id": None},##===================================
         ) as response:
             response.raise_for_status()
             async for line in response.aiter_lines():
                 if not line.startswith("data:"):
                     continue
-                event = json.loads(line[5:].strip())
+                event = json.loads(line[5:].strip())##===================================
                 event_type = event.get("type", "unknown")
                 event_types.append(event_type)
                 elapsed = time.perf_counter() - started
@@ -82,21 +80,16 @@ async def stream_sample(client: httpx.AsyncClient) -> dict:
         "event_types": sorted(set(event_types)),
         "error": error,
     }
-
-
 async def collect_live_samples(concurrency: int, samples: int) -> list[dict]:
     """Collect live SSE samples with a dedicated, open HTTP client."""
     semaphore = asyncio.Semaphore(max(1, concurrency))
-
     async with httpx.AsyncClient(timeout=180) as live_client:
         async def live_one() -> dict:
             async with semaphore:
-                return await stream_sample(live_client)
-
+                return await stream_sample(live_client)##===================================
         live_results = await asyncio.gather(
-            *(live_one() for _ in range(samples)), return_exceptions=True
+            *(live_one() for _ in range(samples)), return_exceptions=True##===================================
         )
-
     return [
         item if isinstance(item, dict) else {"success": False, "error": str(item)}
         for item in live_results
@@ -105,11 +98,10 @@ async def collect_live_samples(concurrency: int, samples: int) -> list[dict]:
 
 async def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--concurrency", type=int, default=5)
+    parser.add_argument("--concurrency", type=int, default=5)##并发
     parser.add_argument("--samples", type=int, default=10)
     parser.add_argument("--include-llm", action="store_true")
     args = parser.parse_args()
-
     report: dict = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "config": {"concurrency": args.concurrency, "samples": args.samples},
@@ -118,26 +110,28 @@ async def main() -> None:
         "notes": [],
     }
 
+
+
     async with httpx.AsyncClient(timeout=30) as client:
         for name, url in {
-            "web_api": f"{WEB_URL}/health",
-            "java_erp": f"{JAVA_URL}/parts/search?name=%E7%81%AB%E8%8A%B1%E5%A1%9E",
+            "web_api": f"{WEB_URL}/health",##===================================
+            "java_erp": f"{JAVA_URL}/parts/search?name=%E7%81%AB%E8%8A%B1%E5%A1%9E",##===================================
         }.items():
             try:
-                elapsed = await timed_get(client, url)
+                elapsed = await timed_get(client, url)##===================================
                 report["services"][name] = {"status": "ok", "seconds": round(elapsed, 3)}
             except Exception as exc:
                 report["services"][name] = {"status": "error", "error": str(exc)}
 
-        semaphore = asyncio.Semaphore(max(1, args.concurrency))
 
+
+        semaphore = asyncio.Semaphore(max(1, args.concurrency))
         async def one() -> float:
             async with semaphore:
-                return await timed_get(client, f"{JAVA_URL}/inventory/warning")
-
+                return await timed_get(client, f"{JAVA_URL}/inventory/warning")##===================================
         started = time.perf_counter()
         results = await asyncio.gather(
-            *(one() for _ in range(args.samples)), return_exceptions=True
+            *(one() for _ in range(args.samples)), return_exceptions=True##===================================
         )
         durations = [value for value in results if isinstance(value, float)]
         failures = len(results) - len(durations)
@@ -153,8 +147,11 @@ async def main() -> None:
             "max_seconds": round(max(durations), 3) if durations else None,
         }
 
+
+
+
     if args.include_llm:
-        normalized = await collect_live_samples(args.concurrency, args.samples)
+        normalized = await collect_live_samples(args.concurrency, args.samples)##===================================
         successful = [item for item in normalized if item.get("success")]
         totals = [item["total_seconds"] for item in successful]
         report["sse_benchmark"] = {
@@ -175,9 +172,7 @@ async def main() -> None:
 
     REPORT_DIR.mkdir(exist_ok=True)
     output = REPORT_DIR / f"benchmark-{datetime.now().strftime('%Y%m%d-%H%M%S')}.json"
-    output.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+    output.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")##===================================
     print(output)
-
-
 if __name__ == "__main__":
     asyncio.run(main())

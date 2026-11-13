@@ -1,12 +1,9 @@
 """Convert a benchmark JSON file into a concise Markdown report."""
 
 from __future__ import annotations
-
 import argparse
 import json
 from pathlib import Path
-
-
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -14,7 +11,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("json_file", type=Path)
     args = parser.parse_args()
-    data = json.loads(args.json_file.read_text(encoding="utf-8"))
+    data = json.loads(args.json_file.read_text(encoding="utf-8"))##===================================
     http = data.get("http_read_benchmark", {})
     lines = [
         "# procurepilot 自动化验收报告",
@@ -57,9 +54,7 @@ def main() -> None:
     ]
     lines.extend(f"- {note}" for note in data.get("notes", []))
     output = args.json_file.with_suffix(".md")
-    output.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    output.write_text("\n".join(lines) + "\n", encoding="utf-8")##===================================
     print(output)
-
-
 if __name__ == "__main__":
     main()

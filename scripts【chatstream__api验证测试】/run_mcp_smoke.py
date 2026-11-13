@@ -23,20 +23,20 @@ async def smoke(url=None):
         from mcp_server.server_main import mcp
         target = mcp
     async with Client(target) as client:
-        names = {tool.name for tool in await client.list_tools()}
+        names = {tool.name for tool in await client.list_tools()}##===================================
         assert EXPECTED <= names, f"Missing tools: {EXPECTED - names}"
-        part = await client.call_tool("part_search", {"name": "陶瓷刹车片"})
+
+        part = await client.call_tool("part_search", {"name": "陶瓷刹车片"})##===================================
         assert not part.is_error and isinstance(part.data, list) and part.data, part
         assert part.data[0]["partCode"] == "DEMO-PART-001"
         assert part.data[0]["price"] == "38.50", part.data
-        warning = await client.call_tool("inventory_warning", {})
+
+        warning = await client.call_tool("inventory_warning", {})##===================================
         assert not warning.is_error and isinstance(warning.data, list), warning
         assert {row["partId"] for row in warning.data} == {1, 3}, warning.data
         print(json.dumps({"ok": True, "registered_tools": len(names), "sample_part": part.data[0]["name"],
                           "unit_price": part.data[0]["price"], "warning_part_ids": [row["partId"] for row in warning.data],
                           "data_kind": "synthetic", "mutations": 0}, ensure_ascii=False))
-
-
 if __name__ == "__main__":
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
