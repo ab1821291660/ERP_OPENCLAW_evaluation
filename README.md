@@ -22,7 +22,7 @@
 
 
 
-·  [来源和许可](README的视频来源SOURCES.md) · [缺口对比矩阵](README的github来源COMPARISON.md) ##===================================##===================================
+·  [来源和许可](README的视频来源SOURCES--github来源COMPARISON对比.md) · [缺口对比矩阵](README的github来源COMPARISON.md) ##===================================##===================================
 ·[证据evidence](docs/finance.md) 
 ·[评估evaluation](docs/evaluation.md) 
 ·[章节与实验](docs/CHAPTERS.md) 

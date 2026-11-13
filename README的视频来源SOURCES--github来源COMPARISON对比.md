@@ -1,3 +1,51 @@
+
+
+
+
+# 视频----章节依据
+- [码士 Harness 多智能体采购课程](https://www.mashibing.com/course/2959) --官网马：https://www.mashibing.com/course/2959 ----
+- [Langfuse 智能体评估课程](https://www.mashibing.com/course/2956)
+- [公开 Harness 课程视频](https://www.bilibili.com/video/BV1Cs7h6MEsX/)
+- [公开财务分析与评估视频](https://www.bilibili.com/video/BV1aZub6bE3W/)
+
+公开线索支持采购业务、DeepAgents、MCP、沙箱、Skills、上下文、人工介入、
+异步Agent、Langfuse 等主题。具体拆分顺序是本仓库的教学编排；
+文档财务证据检索、离线演示-可靠评分投递-和回归测试、JavaERP。。新增模块由本次整合独立实现补充-不能标成官方原章节##===================================
+FinQA外部数据需使用者自行取得并核对数据许可；
+仓库[gloden]只附合成示例，不将采购演示或合成财务数据描述为真实银行业务。
+
+
+
+
+# 来源与实现边界
+## 项目命名依据
+- 官方课程的中文标题为[基于Harness架构多智能体企业采购助手](https://www.mashibing.com/course/2959)。官方页面未提供公开 Git 仓库地址，未确认官方英文仓库名。
+- `ERP_OPENCLAW` 沿用多个同源公开工程的现有命名，仓库名相同不等于各自原创，也不能证明学员身份。
+- 更早的工程痕迹见 liqiangZzz 提交 `f2be64cead24afe55333a3cdc3c6289f248147dd`：[modules.xml](https://github.com/liqiangZzz/ERP_OPENCLAW/blob/f2be64cead24afe55333a3cdc3c6289f248147dd/.idea/modules.xml) 引用了 `ERP_OPENCLAW.iml`；[misc.xml](https://github.com/liqiangZzz/ERP_OPENCLAW/blob/f2be64cead24afe55333a3cdc3c6289f248147dd/.idea/misc.xml) 的 Python SDK 名也包含 `ERP_OPENCLAW`。因此选择已有工程名，而不自行翻译中文标题。
+- 本仓库仍是公开源码整合与工程补充版；更名不改变下述实际复用来源、许可证与实现边界。
+## 直接复用
+- 来源：[KagaribiDev/procurepilot](https://github.com/KagaribiDev/procurepilot)：：基础Agent/MCP/前端代码--直接复用##===================================来自 [KagaribiDev/procurepilot](https://github.com/KagaribiDev/procurepilot)
+- 固定版本：`012b51ed6c1e9f80133a4add5ec170b817b9465e`
+- 许可：MIT，原文保留于根目录 LICENSE 和 third_party/procurepilot-LICENSE.txt。
+- 范围：采购Agent、、、、MCP适配、沙箱与Skills、持久化、、、、多用户API和Vue前端的基础实现。
+- 未导入上游图片与数据库整包，样例数据使用本仓库合成数据。
+## 行为与方案参考
+以下仓库用于交叉验证功能和发现缺口。没有将它们全部作为代码复制来源；新增模块按接口行为独立实现。
+[liqiangZzz最早马--已clone](https://github.com/liqiangZzz/ERP_OPENCLAW)。 ----##===================================
+[junjun0228](https://github.com/junjun0228/ERP_OPENCLAW) 和 
+
+| 参考                                                                                                              | 本仓库吸收的方向 |
+|-----------------------------------------------------------------------------------------------------------------|---|
+| [chenqianlei51525/ERP_OPENCLAW](https://github.com/chenqianlei51525/ERP_OPENCLAW)                               | 比较基础采购结构、内存Store与持久Store差异 |
+| [Running-hue/procureflow-agent](https://github.com/Running-hue/procureflow-agent)                               | ERP REST 路径契约、订单部分更新、业务测试 |
+| ----[Ckingleeee/ERP_OPENCLAW](https://github.com/Ckingleeee/ERP_OPENCLAW)                                       | 黄金用例、真实工具轨迹、执行结果未知时的处理 |
+| ----[hxlwd/leman](https://github.com/hxlwd/leman)                                                               | 文档检索、证据回查与引用 |
+| ----[gaoyanzhi/purchase_ai](https://gitee.com/gaoyanzhi/purchase_ai)                                            | 工作流边界与 Langfuse 观测 |
+| ----[doneyli/langfuse-llm-certification-finance](https://github.com/doneyli/langfuse-llm-certification-finance) | 评估标准、人工审核回流、发布门禁 |
+
+
+
+
 # 公开版本对比与本仓库补充范围
 
 本表依据 2026-09-07 的公开源码静态对比记录，以及当前 ERP_OPENCLAW 的实际实现整理。公开仓库后续可能变化；“未见”表示当时核查的目录和主调用链没有发现，不是证明整个历史都不存在。没有确认所有仓库的学员身份，也不能从文件相同推断谁先复制谁。
@@ -49,3 +97,7 @@
 银行外部征信、企业工商与诉讼数据、真实财报授权接入、授信政策与风险定价、专家审核工作流、监管留痕、贷后监控和生产级权限治理均未实现。采购侧也没有实现真实发票/收货/采购单三单匹配、多仓批次、支付结算与物流供应商集成。
 
 保留这些边界可以明确下一步要验证或新增什么。现在可以复现的是采购协议与本地业务一致性、用户隔离、财务证据与计算、真实图接线的无网络测试、合成工作台和持久评估闭环，不能把它们直接等同于真实银行上线系统。
+
+
+
+
