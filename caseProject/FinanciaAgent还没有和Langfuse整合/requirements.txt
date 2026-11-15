@@ -1,0 +1,12 @@
+# 与本项目当前已验证的运行环境一致；v3 流式协议需这组框架版本。
+deepagents==0.6.12
+langchain==1.4.1
+langchain-openai==1.7.1
+langgraph==1.2.11
+langgraph-checkpoint-sqlite==3.1.1
+fastapi==0.141.1
+uvicorn==0.53.0
+SQLAlchemy==2.0.54
+pydantic-settings==2.15.0
+aiosqlite==0.22.1
+httpx==0.28.1

@@ -36,7 +36,7 @@ ENV/
 
 # Packaging/build output.
 build/
-dist/
+#dist/
 *.egg-info/
 .eggs/
 *.egg
@@ -87,7 +87,7 @@ pnpm-debug.log*
 
 # Runtime logs and temporary output.
 *.log
-logs/
+#logs/
 temp/
 tmp/
 .tmp/
@@ -131,7 +131,7 @@ ehthumbs_vista.db
 #/data/
 target/
 *.sqlite3-*
-*.db-*
+#*.db-*
 
 # Docker/OpenSandbox data is stored in named volumes and must not be copied
 # into the repository if a local bind-mounted data directory is introduced.

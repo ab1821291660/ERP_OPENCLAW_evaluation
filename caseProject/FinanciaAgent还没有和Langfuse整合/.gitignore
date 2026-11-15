@@ -1,0 +1,10 @@
+.env
+.venv/
+.idea/
+__pycache__/
+*.py[cod]
+frontend/node_modules/
+frontend/dist/
+logs/
+data/*.db
+data/*.db-*
