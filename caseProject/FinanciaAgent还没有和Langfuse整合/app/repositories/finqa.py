@@ -124,16 +124,6 @@ class FinQARepository:
         self.db = db
 
 
-    def get_report(self, report_id: str, split: str | None = None) -> FinancialReport | None:
-        """按原始 report_id 精确读取报告；split 可消除跨数据集歧义。"""
-        statement = select(FinancialReport).where(
-            FinancialReport.source_id == report_id,
-        )
-        if split is not None:
-            statement = statement.where(FinancialReport.split == split)
-        return self.db.scalars(statement.order_by(FinancialReport.split).limit(1)).first()##FinancialReport表source_id唯一##===================================
-
-
 
     @classmethod
     def compact_report(##FinancialReport表   一个对象report: FinancialReport,一行内的压缩##===================================
@@ -252,7 +242,7 @@ class FinQARepository:
         return result
 
 
-    def ________关键词搜索(self):
+    def ____关键词搜索__n多行(self):
         pass
     def search(
             self,  # 仓储实例，持有数据库 Session
@@ -288,7 +278,7 @@ class FinQARepository:
         ]
 
 
-    def ________精准查询(self):
+    def ________精准查询__n多行(self):
         pass
     def find_reports(
             self,  # 仓储实例，持有数据库 Session
@@ -398,7 +388,7 @@ class FinQARepository:
         }
 
 
-    def ________路由入口2种分类(self):
+    def ________________路由入口2种分类__n多行(self):
         pass
     def search_reports(
             self,
@@ -438,6 +428,17 @@ class FinQARepository:
             limit=min(limit, 3),
         )
 
+
+    def ________适合已经找到明确report_id的情况(self):  ##根据 report_id 读取报告证据
+        pass
+    def get_report(self, report_id: str, split: str | None = None) -> FinancialReport | None:
+        """按原始 report_id 精确读取报告；split 可消除跨数据集歧义。"""
+        statement = select(FinancialReport).where(
+            FinancialReport.source_id == report_id,
+        )
+        if split is not None:
+            statement = statement.where(FinancialReport.split == split)
+        return self.db.scalars(statement.order_by(FinancialReport.split).limit(1)).first()##FinancialReport表source_id唯一##===================================
 
 
     def counts(self) -> dict[str, int]:  # 返回统计字典

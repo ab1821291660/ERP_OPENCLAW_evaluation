@@ -25,6 +25,8 @@ class AgentResponse(BaseModel):
     message_id: str
 
 
+
+
 class SessionCreate(BaseModel):
     title: str | None = Field(default=None, max_length=200)
 

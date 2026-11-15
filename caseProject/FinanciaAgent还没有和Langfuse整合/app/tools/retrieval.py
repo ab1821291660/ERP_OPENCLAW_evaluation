@@ -1,7 +1,6 @@
 import logging
 import re
-
-from langchain_core.runnables import RunnableConfig
+from langchain_core.runnables import RunnableConfig##===================================
 from langchain_core.tools import tool
 
 from app.repositories.database import SessionLocal
@@ -17,48 +16,18 @@ _REPORT_ID_PATTERN = re.compile(
     r"[A-Za-z0-9._-]+/\d{4}/[A-Za-z0-9._-]+\.pdf-\d+"
 )
 
-def _search_financial_reports(
-    repository: FinQARepository,
-    query: str,
-    limit: int = 3,
-    config: RunnableConfig = None,
-) -> list[dict]:
-    """按查询文本搜索；程序指定精确 ID 时转为精确读取。"""
 
-    forced_identifier, forced_split = _runtime_identifier(config)
 
-    # 精确 ID 只能来自程序运行配置，搜索工具本身不接收 report_id。
-    if forced_identifier:
-        forced_report_id = forced_identifier.split("#q", maxsplit=1)[0]
-
-        log_event(
-            logger,
-            "finqa_search_redirected_to_exact_report",
-            effective_identifier=forced_report_id,
-            query=query,
-        )
-
-        result = _get_financial_report(
-            repository=repository,
-            report_id=forced_report_id,
-            query=query,
-            config=config,
-        )
-        return [result] if result.get("found") else []
-
-    return repository.search_reports(
-        query=query,
-        split=forced_split,
-        limit=min(limit, 3),
-    )
 
 def _runtime_identifier(config: RunnableConfig | None) -> tuple[str, str | None]:
     """从 LangGraph configurable 中读取服务端强制注入的原始 FinQA 标识。"""
-    configurable = (config or {}).get("configurable", {})
+    configurable = (config or {}).get("configurable", {})##===================================##===================================##===================================##===================================
     return (
         str(configurable.get("finqa_identifier") or "").strip(),
         configurable.get("finqa_split"),
     )
+
+
 
 def _get_financial_report(
     repository: FinQARepository,
@@ -74,10 +43,10 @@ def _get_financial_report(
         - finqa_identifier：服务端保存的 FinQA 标识；
         - finqa_split：服务端保存的数据分区。
     '''
-    forced_identifier, forced_split = _runtime_identifier(config)
+    forced_identifier, forced_split = _runtime_identifier(config)##===================================
 
     # 程序提供的题目标识可以转换成其所属报告标识。
-    forced_report_id = forced_identifier.split("#q", maxsplit=1)[0]
+    forced_report_id = forced_identifier.split("#q", maxsplit=1)[0]##去掉#q及之后的部分
 
     requested_report_id = report_id.strip()
 
@@ -85,7 +54,7 @@ def _get_financial_report(
     effective_report_id = forced_report_id or requested_report_id
     effective_split = forced_split
 
-    identifier_forced = bool(
+    identifier_forced = bool(##========
         forced_report_id
         and forced_report_id != requested_report_id
     )
@@ -98,7 +67,7 @@ def _get_financial_report(
             "identifier_type": "report_id",
             "report_id": effective_report_id,
             "requested_report_id": requested_report_id,
-            "identifier_forced": identifier_forced,
+            "identifier_forced": identifier_forced,##========
             "recommended_tool": "find_finqa_reports",
             "hint": (
                 "report_id 必须是完整报告标识，例如 "
@@ -111,7 +80,7 @@ def _get_financial_report(
     # 合并用户要查的指标
     # 将用户所有指标组合为一次查询，减少工具调用并让同一张表的单位/年份保持一致。
     requested_metrics = [item.strip() for item in (metrics or []) if item.strip()]
-    combined_query = " ".join([query.strip(), *requested_metrics]).strip()
+    combined_query = " ".join([query.strip(), *requested_metrics]).strip()##===================================
     if not combined_query:
         return {
             "found": False,
@@ -121,7 +90,7 @@ def _get_financial_report(
             "hint": "必须提供 query 或 metrics，并把全部指标放在同一次调用中。",
         }
     # 从数据库读取报告
-    report = repository.get_report(
+    report = repository.get_report(##===================================##===================================##===================================
         effective_report_id,
         split=effective_split,
     )
@@ -144,7 +113,7 @@ def _get_financial_report(
             ),
         }
     # 报告存在不等于请求指标已全部找到。
-    evidence = repository.compact_report(
+    evidence = repository.compact_report(##===================================##===================================##===================================
         report,
         query=combined_query,
         queries=requested_metrics,
@@ -159,50 +128,45 @@ def _get_financial_report(
         **evidence,
     }
 
-@tool(parse_docstring=True)
-def get_financial_report(
-    report_id: str,
-    query: str = "",
-    metrics: list[str] | None = None,
+
+
+
+def ____关键词搜索__n多行(self):
+    pass
+def _search_financial_reports(
+    repository: FinQARepository,
+    query: str,
+    limit: int = 3,
     config: RunnableConfig = None,
-) -> dict:
-    """读取指定 FinQA 财务报告中的原始证据。
+) -> list[dict]:
+    """按查询文本搜索；程序指定精确 ID 时转为精确读取。"""
+    forced_identifier, forced_split = _runtime_identifier(config)##===================================
 
-    Args:
-        report_id: 完整 FinQA 报告标识，例如 ``AAPL/2014/page_38.pdf-2``。
-            必须使用用户提供的完整 ID，或者报告定位工具返回的完整 ID。
-            不接受 ``AAPL/2014`` 等公司年份组合，也不接受包含 ``#qN``
-            的题目标识。禁止自行猜测页码或编号。
-        query: 对报告内容的自然语言检索词。通常填写用户问题或指标名称，
-            用于压缩正文片段和表格行。
-        metrics: 需要同时提取的财务指标列表，例如
-            ``["long-term debt", "cash generated by operating activities"]``。
-            多个指标应在一次调用中传入，避免重复读取同一份报告。
-        config: LangGraph 运行时配置。由服务端注入的
-            ``finqa_identifier`` 和 ``finqa_split`` 优先于模型传入的同名值，
-            该参数不是用户业务输入。
 
-    Returns:
-        一个当前报告的证据字典。found=True 仅表示报告记录存在。
-        matched_metrics 和 unmatched_metrics 表示当前报告的表格指标行匹配情况。
-        context_snippets 保留期间和单位说明，table_rows 保留表头及相关原始行。
-        是否足以回答问题，还需要结合年份、数值和单位判断。
-        失败时包含 found=False、error 和 hint。
+    # 精确 ID 只能来自程序运行配置，搜索工具本身不接收 report_id。
+    if forced_identifier:
+        forced_report_id = forced_identifier.split("#q", maxsplit=1)[0]
 
-    Notes:
-        工具只读取 SQLite 中已经导入的 FinQA 数据，不会访问文件系统或模型。
-        返回的 ``score`` 仅表示候选证据的关键词相关度，不代表财务答案正确率。
-    """
-    with SessionLocal() as db:
-        return _get_financial_report(
-            FinQARepository(db),
-            report_id,
-            query,
-            metrics,
-            config,
+        log_event(
+            logger,
+            "finqa_search_redirected_to_exact_report",
+            effective_identifier=forced_report_id,
+            query=query,
         )
 
+        result = _get_financial_report(##===================================
+            repository=repository,
+            report_id=forced_report_id,
+            query=query,
+            config=config,
+        )
+        return [result] if result.get("found") else []
 
+    return repository.search_reports(##===================================##===================================##===================================
+        query=query,
+        split=forced_split,
+        limit=min(limit, 3),
+    )
 @tool(parse_docstring=True)
 def search_financial_reports(
     query: str,
@@ -230,7 +194,7 @@ def search_financial_reports(
         不要将 AAPL/2014 等公司年份组合当作完整报告 ID。
     """
     with SessionLocal() as db:
-        return _search_financial_reports(
+        return _search_financial_reports(##===================================
             repository=FinQARepository(db),
             query=query,
             limit=limit,
@@ -238,6 +202,8 @@ def search_financial_reports(
         )
 
 
+def ________精准查询__n多行(self):
+    pass
 @tool(parse_docstring=True)
 def find_finqa_reports(
     company: str,
@@ -274,11 +240,11 @@ def find_finqa_reports(
         候选，不负责计算财务公式，也不表示候选报告已经完成答案验证。
     """
     # 先从运行时配置中获取强制标识
-    forced, forced_split = _runtime_identifier(config)
+    forced, forced_split = _runtime_identifier(config)##===================================
     with SessionLocal() as db:
         repository = FinQARepository(db)
         if forced:
-            result = _get_financial_report(
+            result = _get_financial_report(##===================================
                 repository,
                 forced.split("#q", 1)[0],
                 query=query or " ".join(metrics or []) or company,
@@ -286,7 +252,7 @@ def find_finqa_reports(
                 config=config,
             )
             return {"found": result.get("found", False), "results": [result]}
-        return repository.find_reports(
+        return repository.find_reports(##===================================##===================================##===================================
             company,
             year,
             metrics,
@@ -294,3 +260,54 @@ def find_finqa_reports(
             forced_split,
             limit,
         )
+def ________适合已经找到明确report_id的情况(self):##根据 report_id 读取报告证据
+    pass
+@tool(parse_docstring=True)
+def get_financial_report(
+    report_id: str,
+    query: str = "",
+    metrics: list[str] | None = None,
+    config: RunnableConfig = None,
+) -> dict:
+    """读取指定 FinQA 财务报告中的原始证据。
+
+    Args:
+        report_id: 完整 FinQA 报告标识，例如 ``AAPL/2014/page_38.pdf-2``。
+            必须使用用户提供的完整 ID，或者报告定位工具返回的完整 ID。
+            不接受 ``AAPL/2014`` 等公司年份组合，也不接受包含 ``#qN``
+            的题目标识。禁止自行猜测页码或编号。
+        query: 对报告内容的自然语言检索词。通常填写用户问题或指标名称，
+            用于压缩正文片段和表格行。
+        metrics: 需要同时提取的财务指标列表，例如
+            ``["long-term debt", "cash generated by operating activities"]``。
+            多个指标应在一次调用中传入，避免重复读取同一份报告。
+        config: LangGraph 运行时配置。由服务端注入的
+            ``finqa_identifier`` 和 ``finqa_split`` 优先于模型传入的同名值，
+            该参数不是用户业务输入。
+
+    Returns:
+        一个当前报告的证据字典。found=True 仅表示报告记录存在。
+        matched_metrics 和 unmatched_metrics 表示当前报告的表格指标行匹配情况。
+        context_snippets 保留期间和单位说明，table_rows 保留表头及相关原始行。
+        是否足以回答问题，还需要结合年份、数值和单位判断。
+        失败时包含 found=False、error 和 hint。
+
+    Notes:
+        工具只读取 SQLite 中已经导入的 FinQA 数据，不会访问文件系统或模型。
+        返回的 ``score`` 仅表示候选证据的关键词相关度，不代表财务答案正确率。
+    """
+    with SessionLocal() as db:
+        return _get_financial_report(##===================================
+            FinQARepository(db),
+            report_id,
+            query,
+            metrics,
+            config,
+        )
+# 工具	                        文件                 	作用	                        举例
+# find_finqa_reports     	    app/tools/retrieval.py	按公司、年份、指标定位候选报告	Apple 2014 年的长期债务
+# get_financial_report	    app/tools/retrieval.py	根据 report_id 读取报告证据	适合已经找到明确 report_id 的情况。
+# search_financial_reports	app/tools/retrieval.py	使用自然语言关键词搜索报告	    没有明确年份和公司情况下的，综合搜索
+
+
+

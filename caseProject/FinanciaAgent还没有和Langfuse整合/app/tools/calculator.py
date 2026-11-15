@@ -2,7 +2,6 @@ import ast
 import operator
 import re
 from decimal import Decimal
-
 from langchain_core.tools import tool
 
 
@@ -12,7 +11,6 @@ _BINARY_OPERATORS = {
     ast.Mult: operator.mul,
     ast.Div: operator.truediv,
 }
-
 def _eval_ast(node: ast.AST) -> Decimal:
     """递归执行已白名单的 AST 节点；其他任意 Python 语法一律拒绝。"""
 
@@ -38,6 +36,7 @@ def _eval_ast(node: ast.AST) -> Decimal:
         # 从白名单中取出相应运算函数，对左右两个 Decimal 执行计算。
         return _BINARY_OPERATORS[type(node.op)](left, right)
     raise ValueError("Only numeric literals and +, -, *, / are allowed")
+
 
 
 @tool(parse_docstring=True)
@@ -71,7 +70,15 @@ def safe_calculate(expression: str) -> str:
         normalized = re.sub(r"(\d+(?:\.\d+)?)%", r"(\1/100)", normalized)
     # 把表达式解析成 AST 语法树；这一步不会执行 Python 代码。
     tree = ast.parse(normalized, mode="eval")
+    # 生成的树可以简化为：
+    # 乘法
+    # ├── 除法
+    # │   ├── 减法
+    # │   │   ├── 225
+    # │   │   └── 180
+    # │   └── 180
+    # └── 100
     # 把语法树交给上面的函数 执行器，得到 Decimal 结果。
-    result = _eval_ast(tree)
+    result = _eval_ast(tree)##===================================
     # 规范化结果，并以普通十进制字符串返回。例如 Decimal("25.000") 返回 "25"；
     return format(result.normalize(), "f")

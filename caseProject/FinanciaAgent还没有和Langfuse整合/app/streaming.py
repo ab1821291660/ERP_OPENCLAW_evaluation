@@ -130,20 +130,19 @@ class EventAdapter:
 async def graph_events(message: BaseMessage, config: dict, cancel: asyncio.Event) -> AsyncIterator[dict]:
     """取消信号通过 v3 run.abort 传播到模型、工具及子 Agent。"""
     adapter = EventAdapter()
-    async with await get_agent().astream_events(
+    async with await get_agent().astream_events(##===================================##===================================
         {"messages": [message]}, config=config, version="v3",
     ) as run:
         async def stop_on_signal() -> None:
             await cancel.wait()
             await run.abort()
-
-        stopper = asyncio.create_task(stop_on_signal())
+        stopper = asyncio.create_task(stop_on_signal())##===================================
         try:
             async for event in run:
                 for converted in adapter.convert(event):
                     yield converted
         finally:
-            stopper.cancel()
+            stopper.cancel()##===================================
             with suppress(asyncio.CancelledError):
                 await stopper
 
