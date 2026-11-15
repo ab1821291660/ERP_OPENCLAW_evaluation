@@ -4,11 +4,11 @@ from sqlalchemy import String, UniqueConstraint, JSON, DateTime, Text, Boolean
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.repositories.database import Base
-
-
 def utc_now() -> datetime:
     """为 SQLite 时间字段提供带 UTC 时区的默认时间。"""
     return datetime.now(timezone.utc)
+
+
 
 
 class CompanyAlias(Base):
@@ -73,3 +73,4 @@ class FeedbackRecord(Base):
     updated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), default=utc_now, onupdate=utc_now
     )
+

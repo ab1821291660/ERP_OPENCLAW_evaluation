@@ -120,7 +120,6 @@ def extract_years(query: str) -> list[str]:
 
 class FinQARepository:
     """ ORM相关操作（查询） """
-
     def __init__(self, db: Session):
         self.db = db
 
@@ -132,23 +131,26 @@ class FinQARepository:
         )
         if split is not None:
             statement = statement.where(FinancialReport.split == split)
-        return self.db.scalars(statement.order_by(FinancialReport.split).limit(1)).first()
+        return self.db.scalars(statement.order_by(FinancialReport.split).limit(1)).first()##FinancialReport表source_id唯一##===================================
+
+
 
     @classmethod
-    def compact_report(
+    def compact_report(##FinancialReport表   一个对象report: FinancialReport,一行内的压缩##===================================
         cls,
         report: FinancialReport,
         *,
         query: str,
         queries: list[str] | None = None,
         score: int | None = None,
-        max_snippets: int = 4,
-        max_table_rows: int = 6,
+        max_snippets: int = 4,##pre+post文本
+        max_table_rows: int = 6,##表格行数
     ) -> dict:
-        """保留指标行、表头及期间单位说明，返回当前报告的有限证据。"""
+        """保留指标行、表头及期间单位说明，返回当前报告的有限证据。"""##===================================
         requested_metrics = list(dict.fromkeys(
             item.strip() for item in (queries or []) if item.strip()
         ))
+
 
         # 完整保留单元格，避免字符截断破坏金额、标签和单位。
         table = [
@@ -171,8 +173,10 @@ class FinQARepository:
         if table:
             selected_indexes.add(0)
 
-        terms = set(search_terms(expand_financial_query(
-            " ".join([query, *requested_metrics])
+
+
+        terms = set(search_terms(expand_financial_query(##========  ##========
+            " ".join([query, *requested_metrics])##===================================
         )))
         ranked_rows = sorted(
             (
@@ -197,6 +201,9 @@ class FinQARepository:
                 range(1, min(len(table), max_table_rows + 1))
             )
         selected_rows = [table[index] for index in sorted(selected_indexes)]
+
+
+
 
         texts = list(dict.fromkeys(
             str(text).strip()
@@ -224,6 +231,8 @@ class FinQARepository:
         if not text_snippets:
             text_snippets = [text for _, _, text in ranked_texts[:2]]
 
+
+
         # 行标签匹配不是财务正确性结论，范围仅限当前报告。
         result = {
             "report_id": report.source_id,
@@ -235,13 +244,16 @@ class FinQARepository:
             "matched_metric_count": len(matched_metrics),
             "metric_match_scope": "current_report_table_row_labels",
             "context_snippets": context_snippets,
-            "text_snippets": text_snippets,
-            "table_rows": selected_rows,
+            "text_snippets": text_snippets,##===================================
+            "table_rows": selected_rows,##===================================
         }
         if score is not None:
             result["score"] = score
         return result
 
+
+    def ________关键词搜索(self):
+        pass
     def search(
             self,  # 仓储实例，持有数据库 Session
             query: str,  # 用户查询字符串
@@ -271,10 +283,13 @@ class FinQARepository:
         scored.sort(key=lambda item: (-item[0], item[1].id))  # 按分数降序、id 升序排序
 
         return [  # 返回紧凑报告列表
-            self.compact_report(report, query=query, score=score)  # 对每个报告调用 compact_report
+            self.compact_report(report, query=query, score=score)  # 对每个报告调用 compact_report ##===================================
             for score, report in scored[:limit]  # 只取前 limit 个
         ]
 
+
+    def ________精准查询(self):
+        pass
     def find_reports(
             self,  # 仓储实例，持有数据库 Session
             company: str,  # 公司名称或代码
@@ -351,7 +366,7 @@ class FinQARepository:
                 ensure_ascii=False,
             )
             if content_key not in grouped:
-                evidence = self.compact_report(
+                evidence = self.compact_report( # 对每个报告调用 compact_report ##===================================
                     report,
                     query=expanded,
                     queries=requested_metrics,
@@ -382,6 +397,9 @@ class FinQARepository:
             ),
         }
 
+
+    def ________路由入口2种分类(self):
+        pass
     def search_reports(
             self,
             query: str,
@@ -389,21 +407,20 @@ class FinQARepository:
             limit: int = 3,
     ) -> list[dict]:
         """通过查询文本定位候选，不承担按报告 ID 精确读取的职责。"""
-
         matches = set()
-
         # 从查询文本中识别公司名称、别名或代码。
         for alias, ticker in self.db.execute(
                 select(CompanyAlias.alias, CompanyAlias.ticker)
         ):
             if company_alias_matches(alias, query):
                 matches.add(ticker)
-
         years = extract_years(query)
+
+
 
         # 公司唯一且包含年份时，使用公司年份定位流程。
         if len(matches) == 1 and years:
-            located = self.find_reports(
+            located = self.find_reports(##===================================##===================================
                 company=next(iter(matches)),
                 year=int(years[0]),
                 query=query,
@@ -412,12 +429,16 @@ class FinQARepository:
             )
             return located.get("results", [])
 
+
+
         # 无法可靠识别公司年份时，使用已有关键词搜索。
-        return self.search(
+        return self.search(##===================================##===================================
             query=query,
             split=split,
             limit=min(limit, 3),
         )
+
+
 
     def counts(self) -> dict[str, int]:  # 返回统计字典
         """返回健康检查和运维页面使用的报告总数。"""  # 文档字符串
