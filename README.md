@@ -25,8 +25,8 @@
 ·  [来源和许可](README的视频来源SOURCES--github来源COMPARISON对比.md) · [缺口对比矩阵](README的github来源COMPARISON.md) ##===================================##===================================
 ·[证据evidence](docs/finance.md) 
 ·[评估evaluation](docs/evaluation.md) 
-·[章节与实验](docs/CHAPTERS.md) 
-·[验收记录](docs/VERIFICATION.md) 
+·[章节与实验](docs/CHAPTERS-1-14.md) 
+·[验收记录](docs/VERIFICATION验证13.md) 
 ·[详细启动说明](docs/运行与部署.md)
 
 ## 能实际演示什么
@@ -104,7 +104,7 @@ uv run --frozen python -m asu_eval.gate  ##==========##==========
 --dataset evals/golden.synthetic.json --predictions evals/predictions.baseline.json --baseline evals/baseline.synthetic.json
 ```
 本地验收：**105 项 Python 测试通过**；11 项需显式开关的跨进程测试跳过，13 项外部服务/模型测试默认不选。另行开启专用 Java/MCP 测试通过；Java 12 项集成测试通过；前端构建成功、依赖 audit 为 0。浏览器已验收文档入库、检索、引用回查、计算、
-评估、反馈回流与 ERP 审批。完整命令和范围见 [验收记录](docs/VERIFICATION.md)。##===================================
+评估、反馈回流与 ERP 审批。完整命令和范围见 [验收记录](docs/VERIFICATION验证13.md)。##===================================
 
 ## 实现边界----合成黄金例验证的是评分与门禁实现
 这是可复现的工程实战项目。FTS5 当前是词法检索；不包含 OCR、向量召回、真实征信接入或银行授信审批系统。财务角色具有工具权限限制，但研究后复核的顺序仍由 Prompt 指导。

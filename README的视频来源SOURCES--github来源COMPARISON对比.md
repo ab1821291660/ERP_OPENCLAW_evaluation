@@ -92,7 +92,7 @@ FinQA外部数据需使用者自行取得并核对数据许可；
 | ----【评估eval模块】人工反馈不能沉淀[add_feedback核对后明确提升到黄金集]，，回归缺少发布门禁            | 反馈、核对后的标准答案、明确提升到黄金集、逐用例/指标门禁                                 | [评估 API](src/asu_eval/api.py)、[门禁](src/asu_eval/gate.py) | 本地闭环，不是 Langfuse 云端 AnnotationQueue/Dataset 同步；无线上抽样 LLM judge |
 | ----【评估eval模块】黄金例被包装为实测模型成绩                                          | **12 条合成黄金例**，提供通过/回退两套预写输出，CI 检查正确退出码                        | [golden](../evals/golden.synthetic.json)、[baseline](../evals/predictions.baseline.json)、[regressed](../evals/predictions.regressed.json) | **没有真实 LLM benchmark**；不能据此宣称任务完成率、幻觉率或授信准确率改善 |
 | --新三页界面：：前端只展示聊天，无法实际操作证据与评估                                         | 三页工作台：显式导入、引用回查、计算、----队列详情eval、----反馈----/黄金集                | [Vue 工作台](frontend/src/components/LabWorkspace.vue)、[demo API](src/asu_lab/app.py) | demo 聊天是合成流程，横条明确不调用模型；前端构建不能替代浏览验收 |
-| --部署：：多服务依赖散落，没有统一启动与检验入口                                            | 启动器预检、进程树回收、数据目录约定、CI、demo/live Compose                       | [启动器](start_all.py)、[CI](.github/workflows/quality.yml)、[第 14 章](docs/chapters/14-validation-deployment.md) | Docker、MySQL、OpenSandbox 和云端模型需单独运行验收；不是生产高可用部署 |
+| --部署：：多服务依赖散落，没有统一启动与检验入口                                            | 启动器预检、进程树回收、数据目录约定、CI、demo/live Compose                       | [启动器](start_all.py)、[CI](.github/workflows/quality.yml)、[第 14 章](docs/chapters/14-validation-deployment验证与部署.md) | Docker、MySQL、OpenSandbox 和云端模型需单独运行验收；不是生产高可用部署 |
 
 ## 尚未纳入本次补充的业务能力
 银行外部征信、企业工商与诉讼数据、真实财报授权接入、授信政策与风险定价、专家审核工作流、监管留痕、贷后监控和生产级权限治理均未实现。采购侧也没有实现真实发票/收货/采购单三单匹配、多仓批次、支付结算与物流供应商集成。
