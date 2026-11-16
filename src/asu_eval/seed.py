@@ -34,7 +34,7 @@ def main(argv: list[str] | None = None) -> int:
         baseline = read_json(args.baseline) if args.baseline else None##===================================
 
 
-        # dataset, predictions = read_json(args.dataset), read_json(args.predictions)
+        dataset, predictions = read_json(args.dataset), read_json(args.predictions)
         report = build_report(##===================================
                  read_json(args.dataset), read_json(args.predictions))##===================================
 

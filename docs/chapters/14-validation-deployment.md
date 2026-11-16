@@ -35,7 +35,7 @@ uv run --frozen python start_all.py --mode demo --stop-after 10
 
 预检会检查依赖与端口；第二条启动自己的 API、Worker、前端进程并在就绪后退出。正常服务日志写入 `ASU_DATA_DIR/logs`，默认数据目录为 `.local/asu`。Ctrl+C 只停止本启动器追踪的进程树。不要同时启动两个使用同一端口的实例。
 
-完整 Java → HTTP MCP 实验见 [第 03 章](03-mcp-tools.md)。人工工作台验收见 [第 13 章](13-web-demo.md)。独立异步 Agent Protocol 的启动见 [第 09 章](09-async-analysis.md)。
+完整 Java → HTTP MCP 实验见 [第 03 章](03-mcp-tools.md)。人工工作台验收见 [第 13 章](13------web-demo.md)。独立异步 Agent Protocol 的启动见 [第 09 章](09-async-analysis.md)。
 
 ## 容器与 live 依赖
 

@@ -16,10 +16,10 @@ Windows 终端若输出中文或 LangGraph CLI 的图标时发生编码错误，
 | 08 | [用户认证、SSE 与人工介入【缺字段中断、审批】](chapters/08-auth-sse-hitl.md)                | 还原 | 会话归属、缺字段中断、审批 |
 | 09 | [独立异步分析【异步子agent】与任务管理](chapters/09-async-analysis.md)                  | 还原 | task_id、任务状态、沙箱绑定 |
 
-| 10 | ------[文档证据与财务工具](chapters/10------financial-evidence.md)                | 补充 | 检索、引用、Decimal、FinQA 适配 |
+| 10 | ------[文档证据与财务工具](chapters/10------financial-evidence文档证据与财务工具.md)                | 补充 | 检索、引用、Decimal、FinQA 适配 |
 | 11 | ----[观测与确定性评估](chapters/11----observation-evaluation.md)         | 还原 + 补充 | 旁路轨迹、评分标准、版本信息 |
-| 12 | ----[Worker、Outbox 与质量闭环](chapters/12----worker-quality-loop.md) | 还原 + 补充 | 持久作业、重试评估、人工回流、门禁 |
-| 13 | [Web 工作台与本地演示](chapters/13-web-demo.md)                       | 补充 | 可操作界面、无需模型密钥的合成案例 |
+| 12 | ----[Worker、Outbox 与质量闭环](chapters/12----worker评估---门禁==质量闭环quality-loop用户反馈+存储到指定黄金数据集-闭环---worker评估---门禁.md) | 还原 + 补充 | 持久作业、重试评估、人工回流、门禁 |
+| 13 | [Web 工作台与本地演示](chapters/13------web-demo.md)                       | 补充 | 可操作界面、无需模型密钥的合成案例 |
 | 14 | [集成验证与部署](chapters/14-validation-deployment.md)               | 补充 | 测试、CI、容器、启动与限制 |
 
 前九章的源码分章入库，部分模块引用后续章节，不承诺每个中间提交都能启动完整应用。第 02 章 ERP 可独立运行；第 14 章提供整体验证入口。章节文档解释代码入口、验证目标与依赖，适合按模块理解后运行集成版本。
