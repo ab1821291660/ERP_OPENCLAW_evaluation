@@ -8,7 +8,7 @@ from uuid import uuid4
 
 from langchain_core.messages import AIMessage, BaseMessage, HumanMessage, ToolMessage
 
-from app.agent_factory import get_agent, get_checkpointer, get_store
+from app.agent_factory import get_agent, get_checkpointer, get_store  ##===================================##===================================
 
 
 DEMO_USER_ID = "demo-user"
@@ -55,13 +55,10 @@ def message_text(content: Any) -> str:
     return json.dumps(content, ensure_ascii=False, default=str)
 
 
-async def get_session(session_id: str) -> dict | None:
-    item = await get_store().aget(SESSION_NAMESPACE, session_id)
-    if item is None:
-        return None
-    return {"session_id": session_id, "user_id": DEMO_USER_ID, **item.value}
 
 
+
+def ________session相关(self):pass
 async def create_session(title: str | None = None) -> dict:
     session_id = str(uuid4())
     now = utc_iso()
@@ -71,16 +68,78 @@ async def create_session(title: str | None = None) -> dict:
         "updated_at": now,
         "last_message_preview": "",
     }
-    await get_store().aput(SESSION_NAMESPACE, session_id, value)
+    await get_store().aput(SESSION_NAMESPACE, session_id, value)##===================================##===================================
+    return {"session_id": session_id, "user_id": DEMO_USER_ID, **value}
+async def touch_session(session_id: str, question: str, preview: str) -> None:
+    current = await get_session(session_id)##===================================
+    if current is None:
+        return
+    changes = {"last_message_preview": preview.strip().replace("\n", " ")[:100]}
+    if current["title"] == "新会话":
+        changes["title"] = question.replace("\n", " ")[:36]
+    await update_session(session_id, **changes)##===================================
+
+
+
+async def delete_session(session_id: str) -> bool:
+    if session_id in _active_runs or session_id in _deleting:
+        raise SessionBusyError("请先停止生成，再删除会话")
+    # 删除期间阻止新的 Agent 请求写入同一个 thread。
+    _deleting.add(session_id)
+    try:
+        if await get_session(session_id) is None:
+            return False
+        await get_checkpointer().adelete_thread(session_id)
+        await get_store().adelete(SESSION_NAMESPACE, session_id)##===================================##===================================
+        return True
+    finally:
+        _deleting.discard(session_id)
+
+
+async def clear_sessions() -> int:
+    global _clearing
+    if _active_runs or _clearing or _deleting:
+        raise SessionBusyError("请先停止所有生成任务，再清空历史")
+    _clearing = True
+    try:
+        rows = await list_sessions(limit=2_000_000)
+        count = 0
+        for row in rows:
+            count += int(await delete_session(row["session_id"]))
+        return count
+    finally:
+        _clearing = False
+
+async def update_session(session_id: str, **changes: Any) -> dict | None:
+    current = await get_session(session_id)##===================================
+    if current is None:
+        return None
+    value = {
+        "title": current["title"],
+        "created_at": current["created_at"],
+        "updated_at": utc_iso(),
+        "last_message_preview": current.get("last_message_preview", ""),
+    }
+    for key in ("title", "last_message_preview"):
+        if key in changes:
+            value[key] = changes[key]
+    await get_store().aput(SESSION_NAMESPACE, session_id, value)##===================================##===================================
     return {"session_id": session_id, "user_id": DEMO_USER_ID, **value}
 
+
+
+async def get_session(session_id: str) -> dict | None:
+    item = await get_store().aget(SESSION_NAMESPACE, session_id)##===================================##===================================
+    if item is None:
+        return None
+    return {"session_id": session_id, "user_id": DEMO_USER_ID, **item.value}
 
 async def list_sessions(limit: int = 200, offset: int = 0) -> list[dict]:
     """先读取目录再按更新时间排序，避免数据库默认顺序影响最近会话。"""
     items = []
     cursor = 0
     while True:
-        batch = await get_store().asearch(SESSION_NAMESPACE, limit=200, offset=cursor)
+        batch = await get_store().asearch(SESSION_NAMESPACE, limit=200, offset=cursor)##===================================##===================================
         items.extend(batch)
         if len(batch) < 200:
             break
@@ -93,33 +152,13 @@ async def list_sessions(limit: int = 200, offset: int = 0) -> list[dict]:
     return rows[offset:offset + limit]
 
 
-async def update_session(session_id: str, **changes: Any) -> dict | None:
-    current = await get_session(session_id)
-    if current is None:
-        return None
-    value = {
-        "title": current["title"],
-        "created_at": current["created_at"],
-        "updated_at": utc_iso(),
-        "last_message_preview": current.get("last_message_preview", ""),
-    }
-    for key in ("title", "last_message_preview"):
-        if key in changes:
-            value[key] = changes[key]
-    await get_store().aput(SESSION_NAMESPACE, session_id, value)
-    return {"session_id": session_id, "user_id": DEMO_USER_ID, **value}
 
 
-async def touch_session(session_id: str, question: str, preview: str) -> None:
-    current = await get_session(session_id)
-    if current is None:
-        return
-    changes = {"last_message_preview": preview.strip().replace("\n", " ")[:100]}
-    if current["title"] == "新会话":
-        changes["title"] = question.replace("\n", " ")[:36]
-    await update_session(session_id, **changes)
 
 
+
+
+def ________run相关(self):pass
 async def reserve_run(session_id: str, request_id: str) -> RunControl:
     """先原子登记占用再检查目录，避免删除会话与启动任务之间的竞态。"""
     if _clearing or session_id in _deleting or session_id in _active_runs:
@@ -154,36 +193,11 @@ def stop_all_runs() -> None:
         current.cancel.set()
 
 
-async def delete_session(session_id: str) -> bool:
-    if session_id in _active_runs or session_id in _deleting:
-        raise SessionBusyError("请先停止生成，再删除会话")
-    # 删除期间阻止新的 Agent 请求写入同一个 thread。
-    _deleting.add(session_id)
-    try:
-        if await get_session(session_id) is None:
-            return False
-        await get_checkpointer().adelete_thread(session_id)
-        await get_store().adelete(SESSION_NAMESPACE, session_id)
-        return True
-    finally:
-        _deleting.discard(session_id)
 
 
-async def clear_sessions() -> int:
-    global _clearing
-    if _active_runs or _clearing or _deleting:
-        raise SessionBusyError("请先停止所有生成任务，再清空历史")
-    _clearing = True
-    try:
-        rows = await list_sessions(limit=2_000_000)
-        count = 0
-        for row in rows:
-            count += int(await delete_session(row["session_id"]))
-        return count
-    finally:
-        _clearing = False
 
 
+def ________history历史数据__get_agent__aget_state(self):pass
 def serialize_message(message: BaseMessage, index: int) -> dict | None:
     """只恢复 Checkpointer 实际保存的消息，不伪造临时子 Agent 过程。"""
     if isinstance(message, HumanMessage):
@@ -211,13 +225,12 @@ def serialize_message(message: BaseMessage, index: int) -> dict | None:
         )
     return result
 
-
 async def get_history(session_id: str) -> list[dict] | None:
     if await get_session(session_id) is None:
         return None
-    snapshot = await get_agent().aget_state({"configurable": {"thread_id": session_id}})
+    snapshot = await get_agent().aget_state({"configurable": {"thread_id": session_id}})##===================================
     return [
         serialized
         for index, message in enumerate(snapshot.values.get("messages") or [])
-        if (serialized := serialize_message(message, index)) is not None
+        if (serialized := serialize_message(message, index)) is not None##===================================
     ]
