@@ -13,10 +13,9 @@
 
 
 
+
 # 公开教学资料索引
-
 核查日期：2026-09-08。建议先读已公开的正文与工程导读；仅有搜索摘要或打不开正文的资料不计入已获得课件。以下摘要为本次整理，原文版权归各作者。
-
 ## 优先阅读
 
 - 携程入门：T06 → T05；需要补概念时读 T03。
@@ -28,7 +27,7 @@
 
 ## 资料逐条说明
 
-### T01 ERP OPENCLAW 智能采购助手：课程工程总导读
+### ----【git附带摩托车java】T01==T07 ERP OPENCLAW 智能采购助手：课程工程总导读
 
 - [打开原文](https://github.com/agncao/HarnessEngineeringBased_DeepAgents_Course)
 - 平台：GitHub
@@ -38,15 +37,36 @@
 - 建议用途：作为现有 ERP_OPENCLAW 的课程对照主索引，不照搬作者身份或项目经历。
 - 覆盖：Python Agent / MCP / Java ERP 的整体关系；核心工程与前端及 ERP 文档入口；启动顺序；阶段性课程快照线索
 
-### T02 多agent项目场景面试题：ERP_OPENCLAW AI Agent 项目面试准备
-
+### ----【稀土掘金-EMA-前端开发】T02 多agent项目场景面试题：ERP_OPENCLAW AI Agent 项目面试准备
+【稀土掘金-EMA-前端开发】ERP结合多 Agent 项目技术解析文档2026-06-13：：https://juejin.cn/post/7650416991426527273#heading-1
+【稀土掘金-EMA-前端开发】多agent项目场景面试题2026-07-04：：https://juejin.cn/post/7658236929163280393
 - [打开原文](https://juejin.cn/post/7658236929163280393)
 - 平台：掘金
 - 归属判断：公开作者的项目复盘与面试准备；没有确认其机构/学员身份
 - 归属依据：正文自称做过 ERP_OPENCLAW；业务与代码标识可对应摩托车零部件采购工程。
 - 可访问性：公开，已读取完整正文；页面显示 2026-07-03，搜索索引显示 2026-07-04，故不以精确发布日期推断学习顺序
 - 建议用途：用于检查自己能否解释实际代码与失败场景；其中技术判断应以项目代码和框架文档核实。
-- 覆盖：采购分析与采购订单两条流程；MCP 封装与工具数量控制；补字段与最终审批两层 HITL；checkpoint 与界面消息分层；动态 Skill 与用户偏好；作者自列的硬编码、内存 Store、工具健壮性风险
+  - 覆盖：采购分析与采购订单两条流程；MCP 封装与工具数量控制；补字段与最终审批两层 HITL；checkpoint 与界面消息分层；动态 Skill 与用户偏好；作者自列的硬编码、内存 Store、工具健壮性风险
+      {
+        "id": "T02",
+        "title": "多agent项目场景面试题：ERP_OPENCLAW AI Agent 项目面试准备",
+        "url": "https://juejin.cn/post/7658236929163280393",
+        "platform": "掘金",
+        "author": "EMA",
+        "classification": "公开作者的项目复盘与面试准备；没有确认其机构/学员身份",
+        "attribution_evidence": "正文自称做过 ERP_OPENCLAW；业务与代码标识可对应摩托车零部件采购工程。",
+        "coverage": [
+          "采购分析与采购订单两条流程",
+          "MCP 封装与工具数量控制",
+          "补字段与最终审批两层 HITL",
+          "checkpoint 与界面消息分层",
+          "动态 Skill 与用户偏好",
+          "作者自列的硬编码、内存 Store、工具健壮性风险"
+        ],
+        "access": "公开，已读取完整正文；页面显示 2026-07-03，搜索索引显示 2026-07-04，故不以精确发布日期推断学习顺序",
+        "recommended_use": "用于检查自己能否解释实际代码与失败场景；其中技术判断应以项目代码和框架文档核实。"
+      },
+
 
 ### T03 LangChain 1.0 中 Agent 开发的核心组件
 
@@ -58,7 +78,7 @@
 - 建议用途：作为携程项目之前的入门预习，代码版本以各项目锁定依赖为准。
 - 覆盖：Agent 基础定义；模型与消息；结构化输出；工具调用及代码片段
 
-### T04 基于 GME 的多模态 RAG + 上下文工程实战项目：更新计划
+### 【rag】T04 基于 GME 的多模态 RAG + 上下文工程实战项目：更新计划
 
 - [打开原文](https://www.mashibing.com/update/plan/845?month=2025-10)
 - 平台：码士集团官网
@@ -68,7 +88,7 @@
 - 建议用途：确定多模态 RAG 进阶项目应覆盖什么；不能把需求清单当作已实现或已验证的效果。
 - 覆盖：GME 统一图文嵌入与 Any2Any 检索；SentenceTransformer 本地推理；Dots.OCR 与文档解析；Milvus；RAGAS 无参考评估；LangGraph 多模态回答流程
 
-### T05 携程 AI 旅行助手：多 Agent 工程导读
+### 【ctrip】T05 携程 AI 旅行助手：多 Agent 工程导读
 
 - [打开原文](https://github.com/gdemoni/agent_ctrip_assistant)
 - 平台：GitHub
@@ -78,7 +98,7 @@
 - 建议用途：作为入门业务 Agent 主项目；理解单 Agent 到多 Agent 的变化后再学 Harness。
 - 覆盖：主助理和四个业务子助理；对话状态栈；敏感工具审批；政策 RAG 检索；FastAPI / JWT；前后端启动及接口调试
 
-### T06 Simple Single-Agent Ctrip Assistant：单 Agent 工程导读
+### 【ctrip】T06 Simple Single-Agent Ctrip Assistant：单 Agent 工程导读
 
 - [打开原文](https://github.com/gdemoni/Simple-Single-Agent-Ctrip-Assistant)
 - 平台：GitHub
@@ -88,7 +108,7 @@
 - 建议用途：先于 T05；适合作为短练习，不必在简历里与多 Agent 版本重复列成两个大项目。
 - 覆盖：单 Agent 工具执行循环；航班、酒店、租车、旅行工具；添加新工具；提示词修改；单/多 Agent 使用场景比较
 
-### T07 ERP_OPENCLAW 核心工程 README
+### ----【git附带摩托车java】T07==T01== ERP_OPENCLAW 核心工程 README
 
 - [打开原文](https://github.com/agncao/HarnessEngineeringBased_DeepAgents_Course/blob/master/ERP_OPENCLAW/README.md)
 - 平台：GitHub
@@ -98,7 +118,7 @@
 - 建议用途：与本地工程逐项对照，特别核查外部服务依赖与旧版 API。
 - 覆盖：核心模块；配置；环境依赖；部署和运行入口
 
-### T08 Agentic RAG：个人课程笔记
+### 【rag】T08 Agentic RAG：个人课程笔记
 
 - [打开原文](https://notes.houmq.cn/notes/002.AI/002.%E9%A9%AC%E5%A3%AB%E5%85%B5-%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91/003.RAG/001.Agentic%20RAG/)
 - 平台：个人学习博客
@@ -108,7 +128,7 @@
 - 建议用途：作为企业知识库项目的预习资料；不能替代完整工程与检索实验。
 - 覆盖：Agentic RAG 的基础结构；检索与生成流程；与基础 Agent 章节的连续学习入口
 
-### T09 Dify — Chatflow - 数据库智能查询
+### 【Text2SQL】T09 Dify — Chatflow - 数据库智能查询
 
 - [打开原文](https://www.cnblogs.com/vipsoft/p/20199856)
 - 平台：博客园
@@ -118,17 +138,17 @@
 - 建议用途：可作为 Text2SQL 概念的轻量实验；它是 Dify 方案，不等于 Qwen3 + MCP 课程原工程。
 - 覆盖：MySQL 示例数据；自然语言生成 SQL；提取与执行 SQL；结果优化；Dify 查询工作流与测试
 
-### T10 项目十二：基于 Langfuse 的智能体评估平台实战项目
+### ----【评估--官网link】T10 项目十二：基于 Langfuse 的智能体评估平台实战项目
 
 - [打开原文](https://www.mashibing.com/course/2956)
-- 平台：码士集团官网
+- 平台：码士集团
 - 归属判断：可确认官方课程目录
 - 归属依据：官方课程编号 2956，目录列核心概念、自托管、财务分析项目。
 - 可访问性：公开目录已读；部分课时更新中，财务分析项目章为 0 节；未读取受限课件或视频
 - 建议用途：确定评估平台在课程中的定位；实际补课优先使用 Langfuse 原厂公开示例。
 - 覆盖：Langfuse 概念；自托管；版本演进；财务分析项目章节线索
 
-### T11 Building Deployment Gates for LLMs and AI Agents in Financial Services
+###  ----【评估--英文章less】T11 金融服务业中Building Deployment Gates for LLMs and AI Agents in Financial Services
 
 - [打开原文](https://langfuse.com/blog/2026-07-15-llm-certification-financial-services)
 - 平台：Langfuse 官方博客
@@ -136,7 +156,15 @@
 - 归属依据：发布于 langfuse.com 官方博客。
 - 可访问性：公开，已读取文章内容
 - 建议用途：用于补齐评估项目的实验和交付方法；不要把作者实测数字写成自己的结果。
-- 覆盖：评估数据集；模型与完整 Agent 对照；自动放行/阻断门槛；嵌套追踪；评估证据导出
+- 覆盖：模型与完整Agent对照；嵌套追踪；评估证据导出----评估数据集；自动放行/阻断门槛；
+
+
+
+
+
+
+覆盖：评估数据集；模型与完整 Agent 对照；自动放行/阻断门槛；嵌套追踪；评估证据导出
+
 
 ### T12 LangGraph 学习笔记 (1)
 
@@ -148,7 +176,7 @@
 - 建议用途：仅作为中文辅学线索；主参考仍使用 LangGraph 官方文档，勿因来自 CSDN 就认定课程同源。
 - 覆盖：Graph / State 基础；条件边；消息追加；子图
 
-### T13 第七章：手撕 OpenClaw 并且基于 Harness 架构的 ERP 智能采购助手项目
+### ----【pdf文档】T13 第七章：手撕 OpenClaw 并且基于 Harness 架构的 ERP 智能采购助手项目
 
 - [打开原文](https://my.feishu.cn/wiki/XAevw5e2RicBRWkNswWcZ1Dunth?from=from_copylink)
 - 平台：飞书知识库
@@ -158,7 +186,7 @@
 - 建议用途：保留直接链接供正常浏览器访问；不把它计为已获取的官方完整讲义。
 - 覆盖：根据链接标题推断为 ERP 综合采购项目章节
 
-### T14 从 Agent 到手撕 OpenClaw 的企业实战
+### ----【pdf文档】T14 从 Agent 到手撕 OpenClaw 的企业实战
 
 - [打开原文](https://www.scribd.com/document/1069535846/%E4%BB%8EAgent%E5%88%B0%E6%89%8B%E6%92%95OpenClaw%E7%9A%84%E4%BC%81%E4%B8%9A%E5%AE%9E%E6%88%98)
 - 平台：Scribd
@@ -178,8 +206,7 @@
 - 建议用途：在码士评估课件未公开处作为辅学候选；不能将 README 的全套目录误认为作者全部完成的学习结果。
 - 覆盖：MCP 工具入门及实操复盘；手写 Agent 主循环；LangGraph / 深度研究 / 旅行规划目录；Langfuse 评估 notebook；部署与微调扩展
 
-## 原厂补充材料
-
+## 原厂补充材料--官方
 - [LangGraph 官方历史旅行客服 notebook（已本地保存 MIT 版本）](https://github.com/langchain-ai/langgraph/blob/139cad373b6cf712d0b6d456c698559b59073812/docs/docs/tutorials/customer-support/customer-support.ipynb)
 - [LangChain SQL Agent](https://docs.langchain.com/oss/python/langchain/sql-agent)
 - [LangChain 检索与 RAG](https://docs.langchain.com/oss/python/deepagents/retrieval)
