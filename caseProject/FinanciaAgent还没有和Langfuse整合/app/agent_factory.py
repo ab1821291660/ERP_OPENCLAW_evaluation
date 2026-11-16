@@ -52,10 +52,11 @@ def _create_deepseek_model(model_name: str) -> BaseChatModel:
         base_url=settings.deepseek_base_url,
     )
     return chat_model
-
 def build_model() -> BaseChatModel:
     """创建主模型；未配置模型名时使用 deepseek-flash。"""
     return _create_deepseek_model((get_settings().main_model or "").strip() or "deepseek-flash")
+
+
 
 
 def build_reviewer_model() -> BaseChatModel:
@@ -65,6 +66,7 @@ def build_reviewer_model() -> BaseChatModel:
     if not reviewer_model:
         # 即使模型名与主 Agent 相同，也单独创建一个 reviewer 模型实例。
         return _create_deepseek_model("deepseek-flash")
+
 
     reviewer_provider = settings.reviewer_model_provider.strip().lower()
     if reviewer_provider not in {"", "zhipu"}:
@@ -94,14 +96,19 @@ def build_reviewer_model() -> BaseChatModel:
     return reviewer_chat_model
 
 
+
+
+
+def ________创建create_deep_agent():pass
 _profile_registered = False  # 默认没有注册Harness Profile
 
 def register_basic_harness_profile() -> None:
     """关闭不使用的 DeepAgents 内置工具和默认通用子 Agent。
 
-    ``tools=[...]`` 指定业务工具，但 DeepAgents 还会额外注入文件、待办和
-    ``task`` 工具。本示例保留 ``task`` 用于委派两个业务子 Agent，排除
-    文件和待办工具。此 Profile 只过滤模型可见工具，并非底层文件权限机制。
+    ``tools=[...]`` 指定业务工具，
+    但 DeepAgents 还会额外注入文件、待办和``task`` 工具。
+    本示例保留 ``task`` 用于委派两个业务子 Agent，排除文件和待办工具。##===================================##===================================
+    此 Profile 只过滤模型可见工具，并非底层文件权限机制。
     """
 
     global _profile_registered
@@ -119,8 +126,8 @@ def register_basic_harness_profile() -> None:
                     "read_file",
                     "write_file",
                     "edit_file",
-                    "execute",
-                    "write_todos",  # 任务计划的工具
+                    "execute",##===================================##===================================
+                    "write_todos",  # 任务计划的工具##===================================##===================================
                 }
             ),
             general_purpose_subagent=GeneralPurposeSubagentProfile(enabled=False),
@@ -132,7 +139,7 @@ def register_basic_harness_profile() -> None:
 def build_agent(*, checkpointer: AsyncSqliteSaver, store: AsyncSqliteStore):
     """组装主 Agent 与两个只使用显式业务工具的 SubAgent。"""
     settings = get_settings()
-    register_basic_harness_profile()
+    register_basic_harness_profile()##===================================
     main_model = build_model()
 
     # researcher 直接查询已导入的 FinQA SQLite；不能调用计算工具。
@@ -212,8 +219,9 @@ async def initialize_agent_runtime() -> None:
     """初始化相关的资源，并创建主Agent"""
     settings = get_settings()
     global _runtime_stack, _checkpointer, _store, _agent
-    if _agent is not None:
+    if _agent is not None:##===================================
         return
+
 
     async with _runtime_lock:
         # 并发初始化的第二次检查，避免重复创建 SQLite 连接与 Agent。
@@ -232,11 +240,11 @@ async def initialize_agent_runtime() -> None:
             )
             await checkpointer.setup()
             await store.setup()
-            agent = build_agent(checkpointer=checkpointer, store=store)
+            agent = build_agent(checkpointer=checkpointer, store=store)##===================================
         except Exception:
             await stack.aclose()  # 释放资源
             raise
-        _runtime_stack = stack
+        _runtime_stack = stack##===================================
         _checkpointer = checkpointer
         _store = store
         _agent = agent
@@ -267,9 +275,9 @@ def get_checkpointer() -> AsyncSqliteSaver:
 async def close_agent_runtime() -> None:
     """释放异步 SQLite 资源，清空本模块的运行时单例。"""
     global _runtime_stack, _checkpointer, _store, _agent
-    if _runtime_stack is not None:
-        await _runtime_stack.aclose()
-    _runtime_stack = None
+    if _runtime_stack is not None:##===================================
+        await _runtime_stack.aclose()##===================================
+    _runtime_stack = None##===================================
     _checkpointer = None
     _store = None
     _agent = None
