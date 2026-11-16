@@ -1,0 +1,8 @@
+{
+  "repository": "https://github.com/langchain-ai/langgraph",
+  "commit": "139cad373b6cf712d0b6d456c698559b59073812",
+  "notebook_path": "docs/docs/tutorials/customer-support/customer-support.ipynb",
+  "license": "MIT",
+  "sha256": "e7978a3851462159756c459282a2db54e68f902fb90895620f708b0a273aebfe",
+  "note": "原样保存官方历史教学notebook及许可，没有执行其代码或安装旧依赖。"
+}

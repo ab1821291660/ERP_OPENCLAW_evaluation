@@ -1,0 +1,279 @@
+{
+  "checked_at": "2026-09-08",
+  "scope": "围绕码士/马士兵 Agent 项目体系，检索官方页面、GitHub、学习博客、CSDN、掘金、飞书及文档平台；这里只保存资料索引与原创摘要，不复制完整课件。",
+  "most_valuable_ids": [
+    "T01",
+    "T02",
+    "T03",
+    "T04",
+    "T05"
+  ],
+  "findings": [
+    "最具体的课程关系证据是 agncao 仓库作者自述课程名称，并链接名为第七章的 ERP 飞书文档；这仍不是官方仓库认证。",
+    "掘金 EMA 的 ERP_OPENCLAW 面试复盘与现有采购项目的命名、子 Agent、工具、审批、状态恢复细节高度对应；作者没有在已读正文中声明马士兵学员身份。",
+    "侯明琦站已从哈希路径迁移到中文目录；当前可读取其马士兵-应用开发分类下的连续笔记。",
+    "CSDN 搜索结果中很多是课程营销、资源包销售或不相关技术拼接，本索引不把这些当作教学文档或来源证明。",
+    "飞书与 Scribd 未成功读取正文，仅保留可继续核实的线索，不据此还原全套课件。",
+    "Langfuse 官方课程目录的财务分析项目仍显示 0 节，不能认定简历中的完整信贷评估实现已经公开。"
+  ],
+  "resources": [
+    {
+      "id": "T01",
+      "title": "ERP OPENCLAW 智能采购助手：课程工程总导读",
+      "url": "https://github.com/agncao/HarnessEngineeringBased_DeepAgents_Course",
+      "platform": "GitHub",
+      "author": "agncao",
+      "classification": "作者明确自述的课程项目资料；官方身份未确认",
+      "attribution_evidence": "README 自述为《从 Agent 到手撕 OpenClaw 的企业实战》课程项目，并链接第七章飞书文档。",
+      "coverage": [
+        "Python Agent / MCP / Java ERP 的整体关系",
+        "核心工程与前端及 ERP 文档入口",
+        "启动顺序",
+        "阶段性课程快照线索"
+      ],
+      "access": "公开，已读取 README 正文",
+      "recommended_use": "作为现有 ERP_OPENCLAW 的课程对照主索引，不照搬作者身份或项目经历。"
+    },
+    {
+      "id": "T02",
+      "title": "多agent项目场景面试题：ERP_OPENCLAW AI Agent 项目面试准备",
+      "url": "https://juejin.cn/post/7658236929163280393",
+      "platform": "掘金",
+      "author": "EMA",
+      "classification": "公开作者的项目复盘与面试准备；没有确认其机构/学员身份",
+      "attribution_evidence": "正文自称做过 ERP_OPENCLAW；业务与代码标识可对应摩托车零部件采购工程。",
+      "coverage": [
+        "采购分析与采购订单两条流程",
+        "MCP 封装与工具数量控制",
+        "补字段与最终审批两层 HITL",
+        "checkpoint 与界面消息分层",
+        "动态 Skill 与用户偏好",
+        "作者自列的硬编码、内存 Store、工具健壮性风险"
+      ],
+      "access": "公开，已读取完整正文；页面显示 2026-07-03，搜索索引显示 2026-07-04，故不以精确发布日期推断学习顺序",
+      "recommended_use": "用于检查自己能否解释实际代码与失败场景；其中技术判断应以项目代码和框架文档核实。"
+    },
+    {
+      "id": "T03",
+      "title": "LangChain 1.0 中 Agent 开发的核心组件",
+      "url": "https://notes.houmq.cn/notes/002.AI/002.%E9%A9%AC%E5%A3%AB%E5%85%B5-%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91/002.LangChain%20V1/003.LangChain%201.0%E4%B8%ADAgent%E5%BC%80%E5%8F%91%E7%9A%84%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6/",
+      "platform": "个人学习博客",
+      "author": "侯明琦",
+      "classification": "作者归类为马士兵-应用开发的个人笔记；不是官方课件认证",
+      "attribution_evidence": "导航层级为 002.马士兵-应用开发 / 002.LangChain V1。",
+      "coverage": [
+        "Agent 基础定义",
+        "模型与消息",
+        "结构化输出",
+        "工具调用及代码片段"
+      ],
+      "access": "公开，已读取正文；旧哈希目录地址返回 404，使用此新目录",
+      "recommended_use": "作为携程项目之前的入门预习，代码版本以各项目锁定依赖为准。"
+    },
+    {
+      "id": "T04",
+      "title": "基于 GME 的多模态 RAG + 上下文工程实战项目：更新计划",
+      "url": "https://www.mashibing.com/update/plan/845?month=2025-10",
+      "platform": "码士集团官网",
+      "author": "肖斌（页面创建人）",
+      "classification": "可确认官方项目说明，不是完整课件",
+      "attribution_evidence": "官方域名、项目标题、创建人肖斌与 2025-10-08 更新时间均可见。",
+      "coverage": [
+        "GME 统一图文嵌入与 Any2Any 检索",
+        "SentenceTransformer 本地推理",
+        "Dots.OCR 与文档解析",
+        "Milvus",
+        "RAGAS 无参考评估",
+        "LangGraph 多模态回答流程"
+      ],
+      "access": "官方标题和元数据可直接读；搜索引擎收录项目需求和流程正文，当前页面阅读器主体以图片呈现",
+      "recommended_use": "确定多模态 RAG 进阶项目应覆盖什么；不能把需求清单当作已实现或已验证的效果。"
+    },
+    {
+      "id": "T05",
+      "title": "携程 AI 旅行助手：多 Agent 工程导读",
+      "url": "https://github.com/gdemoni/agent_ctrip_assistant",
+      "platform": "GitHub",
+      "author": "gdemoni",
+      "classification": "公开学习项目与代码导读；当前 README 不直接声明官方身份",
+      "attribution_evidence": "与同作者单 Agent 工程组成可对照的学习材料；与官方旅行客服案例架构相近，课程身份需额外证据。",
+      "coverage": [
+        "主助理和四个业务子助理",
+        "对话状态栈",
+        "敏感工具审批",
+        "政策 RAG 检索",
+        "FastAPI / JWT",
+        "前后端启动及接口调试"
+      ],
+      "access": "公开，已读取 README 正文",
+      "recommended_use": "作为入门业务 Agent 主项目；理解单 Agent 到多 Agent 的变化后再学 Harness。"
+    },
+    {
+      "id": "T06",
+      "title": "Simple Single-Agent Ctrip Assistant：单 Agent 工程导读",
+      "url": "https://github.com/gdemoni/Simple-Single-Agent-Ctrip-Assistant",
+      "platform": "GitHub",
+      "author": "gdemoni",
+      "classification": "公开学习项目与代码导读",
+      "attribution_evidence": "README 明确定位为简易单智能体旅行服务系统，供学习参考。",
+      "coverage": [
+        "单 Agent 工具执行循环",
+        "航班、酒店、租车、旅行工具",
+        "添加新工具",
+        "提示词修改",
+        "单/多 Agent 使用场景比较"
+      ],
+      "access": "公开，已读取 README 正文",
+      "recommended_use": "先于 T05；适合作为短练习，不必在简历里与多 Agent 版本重复列成两个大项目。"
+    },
+    {
+      "id": "T07",
+      "title": "ERP_OPENCLAW 核心工程 README",
+      "url": "https://github.com/agncao/HarnessEngineeringBased_DeepAgents_Course/blob/master/ERP_OPENCLAW/README.md",
+      "platform": "GitHub",
+      "author": "agncao",
+      "classification": "作者自述课程项目的工程说明",
+      "attribution_evidence": "由 T01 总 README 直接链接。",
+      "coverage": [
+        "核心模块",
+        "配置",
+        "环境依赖",
+        "部署和运行入口"
+      ],
+      "access": "公开，已读取正文",
+      "recommended_use": "与本地工程逐项对照，特别核查外部服务依赖与旧版 API。"
+    },
+    {
+      "id": "T08",
+      "title": "Agentic RAG：个人课程笔记",
+      "url": "https://notes.houmq.cn/notes/002.AI/002.%E9%A9%AC%E5%A3%AB%E5%85%B5-%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91/003.RAG/001.Agentic%20RAG/",
+      "platform": "个人学习博客",
+      "author": "侯明琦",
+      "classification": "作者归类为马士兵-应用开发的个人笔记",
+      "attribution_evidence": "导航层级为 002.马士兵-应用开发 / 003.RAG。",
+      "coverage": [
+        "Agentic RAG 的基础结构",
+        "检索与生成流程",
+        "与基础 Agent 章节的连续学习入口"
+      ],
+      "access": "公开，页面正文可读；旧哈希目录失效",
+      "recommended_use": "作为企业知识库项目的预习资料；不能替代完整工程与检索实验。"
+    },
+    {
+      "id": "T09",
+      "title": "Dify — Chatflow - 数据库智能查询",
+      "url": "https://www.cnblogs.com/vipsoft/p/20199856",
+      "platform": "博客园",
+      "author": "VipSoft",
+      "classification": "个人实操笔记，局部明确引用马士兵教学数据",
+      "attribution_evidence": "数据库建表与插数段明确标注来源为马士兵教育；不能由此认定全篇为官方课件。",
+      "coverage": [
+        "MySQL 示例数据",
+        "自然语言生成 SQL",
+        "提取与执行 SQL",
+        "结果优化",
+        "Dify 查询工作流与测试"
+      ],
+      "access": "公开，已读取正文与代码示例",
+      "recommended_use": "可作为 Text2SQL 概念的轻量实验；它是 Dify 方案，不等于 Qwen3 + MCP 课程原工程。"
+    },
+    {
+      "id": "T10",
+      "title": "项目十二：基于 Langfuse 的智能体评估平台实战项目",
+      "url": "https://www.mashibing.com/course/2956",
+      "platform": "码士集团官网",
+      "author": "码士集团",
+      "classification": "可确认官方课程目录",
+      "attribution_evidence": "官方课程编号 2956，目录列核心概念、自托管、财务分析项目。",
+      "coverage": [
+        "Langfuse 概念",
+        "自托管",
+        "版本演进",
+        "财务分析项目章节线索"
+      ],
+      "access": "公开目录已读；部分课时更新中，财务分析项目章为 0 节；未读取受限课件或视频",
+      "recommended_use": "确定评估平台在课程中的定位；实际补课优先使用 Langfuse 原厂公开示例。"
+    },
+    {
+      "id": "T11",
+      "title": "Building Deployment Gates for LLMs and AI Agents in Financial Services",
+      "url": "https://langfuse.com/blog/2026-07-15-llm-certification-financial-services",
+      "platform": "Langfuse 官方博客",
+      "author": "Doneyli De Jesus",
+      "classification": "工具原厂公开教程，与码士课程无已确认归属关系",
+      "attribution_evidence": "发布于 langfuse.com 官方博客。",
+      "coverage": [
+        "评估数据集",
+        "模型与完整 Agent 对照",
+        "自动放行/阻断门槛",
+        "嵌套追踪",
+        "评估证据导出"
+      ],
+      "access": "公开，已读取文章内容",
+      "recommended_use": "用于补齐评估项目的实验和交付方法；不要把作者实测数字写成自己的结果。"
+    },
+    {
+      "id": "T12",
+      "title": "LangGraph 学习笔记 (1)",
+      "url": "https://blog.csdn.net/M1rage/article/details/146564105",
+      "platform": "CSDN",
+      "author": "M1rage",
+      "classification": "独立作者基础笔记，未发现码士课程归属证据",
+      "attribution_evidence": "文章标为原创，讨论基础图、条件边、消息规约、MessagesState、子图。",
+      "coverage": [
+        "Graph / State 基础",
+        "条件边",
+        "消息追加",
+        "子图"
+      ],
+      "access": "搜索引擎公开收录正文已读；当前直接请求返回 521，未绕过访问限制",
+      "recommended_use": "仅作为中文辅学线索；主参考仍使用 LangGraph 官方文档，勿因来自 CSDN 就认定课程同源。"
+    },
+    {
+      "id": "T13",
+      "title": "第七章：手撕 OpenClaw 并且基于 Harness 架构的 ERP 智能采购助手项目",
+      "url": "https://my.feishu.cn/wiki/XAevw5e2RicBRWkNswWcZ1Dunth?from=from_copylink",
+      "platform": "飞书知识库",
+      "author": "未确认",
+      "classification": "课程关联文档线索，官方归属和正文未确认",
+      "attribution_evidence": "T01 仓库 README 将其标为课程背景，并明确给出第七章标题。",
+      "coverage": [
+        "根据链接标题推断为 ERP 综合采购项目章节"
+      ],
+      "access": "本次未成功打开正文；不能判断是登录权限、失效还是抓取兼容问题",
+      "recommended_use": "保留直接链接供正常浏览器访问；不把它计为已获取的官方完整讲义。"
+    },
+    {
+      "id": "T14",
+      "title": "从 Agent 到手撕 OpenClaw 的企业实战",
+      "url": "https://www.scribd.com/document/1069535846/%E4%BB%8EAgent%E5%88%B0%E6%89%8B%E6%92%95OpenClaw%E7%9A%84%E4%BC%81%E4%B8%9A%E5%AE%9E%E6%88%98",
+      "platform": "Scribd",
+      "author": "上传者及原作者未确认",
+      "classification": "疑似课程同名文档线索，不是已确认官方资料",
+      "attribution_evidence": "搜索摘要出现相同第七章标题、ERP、DeepAgents 固定版本及异步子 Agent 描述。",
+      "coverage": [
+        "根据搜索片段可知包含 Harness、Skills、安全与 ERP 综合项目章节"
+      ],
+      "access": "搜索摘要可见，正文打开失败；未下载或绕过付费/登录",
+      "recommended_use": "仅用作来源追踪线索，不据此声称已还原全部章节。"
+    },
+    {
+      "id": "T15",
+      "title": "Agentic AI 学习实战笔记",
+      "url": "https://github.com/dongzhijie2017/Agent-Learning-Notes",
+      "platform": "GitHub",
+      "author": "dongzhijie2017",
+      "classification": "另一套课程的作者学习记录，可用作补充，不属于已确认码士资料",
+      "attribution_evidence": "README 明确说明基于 FlyAIBox/Agent_In_Action，作者当前自述仅完成 Project 1；后续内容主要为原课程目录。",
+      "coverage": [
+        "MCP 工具入门及实操复盘",
+        "手写 Agent 主循环",
+        "LangGraph / 深度研究 / 旅行规划目录",
+        "Langfuse 评估 notebook",
+        "部署与微调扩展"
+      ],
+      "access": "公开，已读取 README；未执行或验证其所有项目",
+      "recommended_use": "在码士评估课件未公开处作为辅学候选；不能将 README 的全套目录误认为作者全部完成的学习结果。"
+    }
+  ]
+}
