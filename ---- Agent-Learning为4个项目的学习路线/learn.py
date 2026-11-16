@@ -125,7 +125,7 @@ def main():
                             'error': 'Run clone --with-erp, then install ERP dependencies using its README.'})
         else:
             for variant, expected in [('baseline', 0), ('regressed', 1)]:
-                arguments = ['-m', 'asu_eval.gate',##===================================##===================================##===================================##===================================
+                arguments = ['-m', 'asu_eval.gate',##基线应返回 0；故意回退应返回 1，表示成功发现退化。总入口只核验这两个退出码，不替代 ERP 全量测试。##===================================##===================================##===================================##===================================
                              '--dataset', 'evals/golden.synthetic.json',
                              '--predictions',
                              f'evals/predictions.{variant}.json',
