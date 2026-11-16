@@ -79,7 +79,7 @@ class LangfuseScoreSender:
         valid_latency = isinstance(latency, (int, float)) and not isinstance(latency, bool) and 0 <= latency <= 86_400_000
         start_ns = end_ns - int(latency * 1_000_000) if valid_latency else end_ns
         span = {
-            "traceId": payload["traceId"],
+            "traceId": payload["traceId"],##===================================
             "spanId": payload["observationId"],
             "name": "ERP_OPENCLAW completed Agent run", "kind": 1,
             "startTimeUnixNano": str(start_ns), "endTimeUnixNano": str(end_ns),
@@ -96,7 +96,9 @@ class LangfuseScoreSender:
         }
         body = {"resourceSpans": [{"resource": {"attributes": [attr("service.name", "asu-evaluation-worker")]},
                                     "scopeSpans": [{"scope": {"name": "asu-eval", "version": "1"}, "spans": [span]}]}]}
-        self._post(self.trace_url, body, trace=True)##===================================
+        self._post(self.trace_url, ##===================================##===================================
+                   body,
+                   trace=True)
 
 
     def _post(self, url: str, payload: dict[str, Any], *, trace: bool = False) -> None:

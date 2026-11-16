@@ -24,25 +24,12 @@ FinQA外部数据需使用者自行取得并核对数据许可；
 - 更早的工程痕迹见 liqiangZzz 提交 `f2be64cead24afe55333a3cdc3c6289f248147dd`：[modules.xml](https://github.com/liqiangZzz/ERP_OPENCLAW/blob/f2be64cead24afe55333a3cdc3c6289f248147dd/.idea/modules.xml) 引用了 `ERP_OPENCLAW.iml`；[misc.xml](https://github.com/liqiangZzz/ERP_OPENCLAW/blob/f2be64cead24afe55333a3cdc3c6289f248147dd/.idea/misc.xml) 的 Python SDK 名也包含 `ERP_OPENCLAW`。因此选择已有工程名，而不自行翻译中文标题。
 - 本仓库仍是公开源码整合与工程补充版；更名不改变下述实际复用来源、许可证与实现边界。
 ## 直接复用
-[liqiangZzz最早马--已clone](https://github.com/liqiangZzz/ERP_OPENCLAW)。 ----##===================================##===================================
-- 直接复用来源：[KagaribiDev/procurepilot](https://github.com/KagaribiDev/procurepilot)：：基础Agent/MCP/前端--本项目直接复用##===================================来自 [KagaribiDev/procurepilot](https://github.com/KagaribiDev/procurepilot)
+【已下载】[liqiangZzz最早马--已clone](https://github.com/liqiangZzz/ERP_OPENCLAW)。 ----##===================================##===================================
+【直接复用来源----相当于已下载----】直接复用来源：[KagaribiDev/procurepilot](https://github.com/KagaribiDev/procurepilot)：：基础Agent/MCP/前端--本项目直接复用##===================================来自 [KagaribiDev/procurepilot](https://github.com/KagaribiDev/procurepilot)
 - 固定版本：`012b51ed6c1e9f80133a4add5ec170b817b9465e`
 - 许可：MIT，原文保留于根目录 LICENSE 和 third_party/procurepilot-LICENSE.txt。
 - 范围：采购Agent、、、、MCP适配、沙箱与Skills、持久化、、、、多用户API和Vue前端的基础实现。
 - 未导入上游图片与数据库整包，样例数据使用本仓库合成数据。
-## 行为与方案参考
-以下仓库用于交叉验证功能和发现缺口。没有将它们全部作为代码复制来源；新增模块按接口行为独立实现。
-
-| 参考                                                                                                                    | 本仓库吸收的方向                                      |
-|-----------------------------------------------------------------------------------------------------------------------|-----------------------------------------------|
-| [chenqianlei51525/ERP_OPENCLAW](https://github.com/chenqianlei51525/ERP_OPENCLAW)                                     | 比较基础采购结构、内存Store与持久Store差异                    |
-| [junjun0228/ERP_OPENCLAW](https://github.com/junjun0228/ERP_OPENCLAW)                                                 | 比较基础                                          |
-| [Running-hue/procureflow-agent](https://github.com/Running-hue/procureflow-agent)                                     | ERP REST 路径契约、订单部分更新、业务测试                     |
-| ----[Ckingleeee/ERP_OPENCLAW](https://github.com/Ckingleeee/ERP_OPENCLAW)                                             | 黄金用例、真实工具轨迹、执行结果未知时的处理                        |
-| ----文档证据[hxlwd/leman](https://github.com/hxlwd/leman)                                                                 | 文档检索、证据回查与引用                                  |
-| ----[gaoyanzhi/purchase_ai](https://gitee.com/gaoyanzhi/purchase_ai)                                                  | 独立采购工作流[涉及澄清、供应商、三单匹配]、Langfuse 观测；所查版本使用模拟数据 |
-| ----[doneyli/langfuse-llm-certification-finance](https://github.com/doneyli/langfuse-llm-certification-finance) | 评估标准、人工审核反馈-数据回流、发布门禁                         |
-| AICoding项目[Cris-z123/coding-foreman](https://github.com/Cris-z123/coding-foreman) | 只作为追踪线索，不将它当成已找到完整 FinQA + Langfuse 课程源码                         |
 
 
 
@@ -51,18 +38,31 @@ FinQA外部数据需使用者自行取得并核对数据许可；
 本表依据 2026-09-07 的公开源码静态对比记录，以及当前 ERP_OPENCLAW 的实际实现整理。公开仓库后续可能变化；“未见”表示当时核查的目录和主调用链没有发现，不是证明整个历史都不存在。没有确认所有仓库的学员身份，也不能从文件相同推断谁先复制谁。
 本仓库直接复用的 MIT 基础版本、固定 commit 和独立新增范围见 [SOURCES.md](../SOURCES.md)。其他工程用于核对行为与发现缺口，不表示把无明确许可的源码整包移植进来。章节是推测顺序与本次补充，不是官方逐章目录；没有证据可以宣称所有官方内容已补齐。
 ## 参考版本分别提供了什么
+                | 参考                                                                                                                    | 本仓库吸收的方向                                      |
+                |-----------------------------------------------------------------------------------------------------------------------|-----------------------------------------------|
+                | [chenqianlei51525/ERP_OPENCLAW](https://github.com/chenqianlei51525/ERP_OPENCLAW)                                     | 比较基础采购结构、内存Store与持久Store差异                    |
+                | [junjun0228/ERP_OPENCLAW](https://github.com/junjun0228/ERP_OPENCLAW)                                                 | 比较基础                                          |
+                | [Running-hue/procureflow-agent](https://github.com/Running-hue/procureflow-agent)                                     | ERP REST 路径契约、订单部分更新、业务测试                     |
+                | ----[Ckingleeee/ERP_OPENCLAW](https://github.com/Ckingleeee/ERP_OPENCLAW)                                             | 黄金用例、真实工具轨迹、执行结果未知时的处理                        |
+                | ----文档证据[hxlwd/leman](https://github.com/hxlwd/leman)                                                                 | 文档检索、证据回查与引用                                  |
+                | ----[gaoyanzhi/purchase_ai](https://gitee.com/gaoyanzhi/purchase_ai)                                                  | 独立采购工作流[涉及澄清、供应商、三单匹配]、Langfuse 观测；所查版本使用模拟数据 |
+                | ----[doneyli/langfuse-llm-certification-finance](https://github.com/doneyli/langfuse-llm-certification-finance)       | 评估标准、人工审核反馈-数据回流、发布门禁                         |
 
-| 参考仓库                                                                                                                                                                                    | 对比发现 | 本仓库的处理                                         |
-|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---|------------------------------------------------|
-| 【直接复用】[KagaribiDev/procurepilot](https://github.com/KagaribiDev/procurepilot)                                                                                                           | 采购 Agent、YAML、沙箱、Skills、用户隔离、持久 Store 和独立异步分析已有较完整主干 | 保留主干与 MIT 许可，再补金融证据、评估和具体可靠性问题                 |
-| ...........[KagaribiDev/java-erp](https://github.com/KagaribiDev/java-erp)                                                                                                              | 有配套 ERP 和报价演示页；部分更新存在清空未提供明细的路径 | 独立实现兼容目标的 Java ERP，按实际提供字段更新，不复制未明确许可的原工程      |
-| [chenqianlei51525/ERP_OPENCLAW----junjun0228/ERP_OPENCLAW](https://github.com/chenqianlei51525/ERP_OPENCLAW)、<br/>[junjun0228/ERP_OPENCLAW](https://github.com/junjun0228/ERP_OPENCLAW) | 有相同底座文件；所查基础版存在内存 Store 或较少生命周期模块 | 用于检查 checkpoint 与长期 Store 区别，不退回较弱的内存持久化方案     |
-| [Running-hue/procureflow-agent](https://github.com/Running-hue/procureflow-agent)                                                                                                       | Python ERP、54 路径契约和订单更新测试值得参考；主聊天身份仍有固定值 | 吸收接口与部分更新语义，保留 Java；实际用户由认证绑定                  |
-| ----[Ckingleeee/ERP_OPENCLAW](https://github.com/Ckingleeee/ERP_OPENCLAW)                                                                                                               | 信用卡权益运营改造；有 10 条黄金例、轨迹采集和沙箱错误分类 | 独立补充合成数据、评估、单次 SSE 观测与结果未知处理；不把信用卡权益运营称作企业授信尽调 |
-| ----文档证据[hxlwd/leman](https://github.com/hxlwd/leman)                                                                                                                                | 从采购改成学习助手，包含文档摄取、检索与引用 | 借鉴证据回查目标，新增本地 FTS 文档证据链，没有照搬或宣称完成其向量/RAG 服务    |
-| ----[Gitee gaoyanzhi/purchase_ai](https://gitee.com/gaoyanzhi/purchase_ai)                                                                                                              | 独立采购工作流[涉及澄清、供应商、三单匹配]、Langfuse 观测；所查版本使用模拟数据 | 用于核对业务流程范围；本仓库没有因此宣称具备三单匹配、真实 ERP/SRM 生产接入     |
-| ----[doneyli/langfuse-llm-certification-finance](https://github.com/doneyli/langfuse-llm-certification-finance)                                                                         | 人工审核、数据回流、Prompt 再认证思路可借鉴；实际使用 FinanceBench 等，非目标 FinQA 同版 | 独立实现本地反馈、黄金集和发布门禁，保持数据集与项目身份区分                 |
-| AICoding项目[Cris-z123/coding-foreman](https://github.com/Cris-z123/coding-foreman)                                                                                                                 | 注释提及 `finqa_deepagent_observability`，没有找到可核验的原项目链接 | 只作为追踪线索，不将它当成已找到完整 FinQA + Langfuse 课程源码       |
+
+| 参考仓库                                                                                                                                                                                    | 对比发现                                                    | 本仓库的处理                                         |
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------|------------------------------------------------|
+| 【直接复用】[KagaribiDev/procurepilot](https://github.com/KagaribiDev/procurepilot)                                                                                                           | 采购 Agent、YAML、沙箱、Skills、用户隔离、持久 Store 和独立异步分析已有较完整主干    | 保留主干与 MIT 许可，再补金融证据、评估和具体可靠性问题                 |
+| ...........[配套java的KagaribiDev/java-erp](https://github.com/KagaribiDev/java-erp)                                                                                                       | 有配套 ERP 和报价演示页；部分更新存在清空未提供明细的路径                         | 独立实现兼容目标的 Java ERP，按实际提供字段更新，不复制未明确许可的原工程      |
+| ...........[配套java摩托车系统的agncao/HarnessEngineeringBased_DeepAgents_Course](https://github.com/agncao/HarnessEngineeringBased_DeepAgents_Course)                                          | 有配套 摩托车报价演示页；                            | 独立    |
+| [chenqianlei51525/ERP_OPENCLAW----junjun0228/ERP_OPENCLAW](https://github.com/chenqianlei51525/ERP_OPENCLAW)、<br/>[junjun0228/ERP_OPENCLAW](https://github.com/junjun0228/ERP_OPENCLAW) | 有相同底座文件；所查基础版存在内存 Store 或较少生命周期模块                       | 用于检查 checkpoint 与长期 Store 区别，不退回较弱的内存持久化方案     |
+| [Running-hue/procureflow-agent](https://github.com/Running-hue/procureflow-agent)                                                                                                       | Python ERP、54 路径契约和订单更新测试值得参考；主聊天身份仍有固定值                | 吸收接口与部分更新语义，保留 Java；实际用户由认证绑定                  |
+| ----[Ckingleeee/ERP_OPENCLAW](https://github.com/Ckingleeee/ERP_OPENCLAW)                                                                                                               | 信用卡权益运营改造；有 10 条黄金例、轨迹采集和沙箱错误分类                         | 独立补充合成数据、评估、单次 SSE 观测与结果未知处理；不把信用卡权益运营称作企业授信尽调 |
+| ----文档证据[hxlwd/leman](https://github.com/hxlwd/leman)                                                                                                                                   | 从采购改成学习助手，包含文档摄取、检索与引用                                  | 借鉴证据回查目标，新增本地 FTS 文档证据链，没有照搬或宣称完成其向量/RAG 服务    |
+| ----[Gitee的的 gaoyanzhi/purchase_ai](https://gitee.com/gaoyanzhi/purchase_ai)                                                                                                            | 独立采购工作流[涉及澄清、供应商、三单匹配]、Langfuse 观测；所查版本使用模拟数据           | 用于核对业务流程范围；本仓库没有因此宣称具备三单匹配、真实 ERP/SRM 生产接入     |
+| ----【这个更全的langfuse的api】[doneyli/langfuse-llm-certification-finance](https://github.com/doneyli/langfuse-llm-certification-finance)                                                      | 人工审核、数据回流、Prompt 再认证思路可借鉴；实际使用 FinanceBench 等，非目标 FinQA 同版 | 独立实现本地反馈、黄金集和发布门禁，保持数据集与项目身份区分                 |
+| ----【已git下载】[anselchann/agent-harness-platform](https://github.com/anselchann/agent-harness-platform)面向 AI Agent 的工程化平台 — 可观测、可评测、可回归、可上线                                               |  |                 |
+| AICoding项目[Cris-z123/coding-foreman](https://github.com/Cris-z123/coding-foreman) 注释提及`finqa_deepagent_observability`                                                                   |    |     |
+
 
 
 
@@ -91,7 +91,7 @@ FinQA外部数据需使用者自行取得并核对数据许可；
 | ----【评估eval模块】人工反馈不能沉淀[add_feedback核对后明确提升到黄金集]，，回归缺少发布门禁            | 反馈、核对后的标准答案、明确提升到黄金集、逐用例/指标门禁                                 | [评估 API](src/asu_eval/api.py)、[门禁](src/asu_eval/gate.py) | 本地闭环，不是 Langfuse 云端 AnnotationQueue/Dataset 同步；无线上抽样 LLM judge |
 | ----【评估eval模块】黄金例被包装为实测模型成绩                                          | **12 条合成黄金例**，提供通过/回退两套预写输出，CI 检查正确退出码                        | [golden](../evals/golden.synthetic.json)、[baseline](../evals/predictions.baseline.json)、[regressed](../evals/predictions.regressed.json) | **没有真实 LLM benchmark**；不能据此宣称任务完成率、幻觉率或授信准确率改善 |
 | --新三页界面：：前端只展示聊天，无法实际操作证据与评估                                         | 三页工作台：显式导入、引用回查、计算、----队列详情eval、----反馈----/黄金集                | [Vue 工作台](frontend/src/components/LabWorkspace.vue)、[demo API](src/asu_lab/app.py) | demo 聊天是合成流程，横条明确不调用模型；前端构建不能替代浏览验收 |
-| --部署：：多服务依赖散落，没有统一启动与检验入口                                            | 启动器预检、进程树回收、数据目录约定、CI、demo/live Compose                       | [启动器](start_all.py)、[CI](.github/workflows/quality.yml)、[第 14 章](docs/chapters/14-validation-deployment.md) | Docker、MySQL、OpenSandbox 和云端模型需单独运行验收；不是生产高可用部署 |
+| --部署：：多服务依赖散落，没有统一启动与检验入口                                            | 启动器预检、进程树回收、数据目录约定、CI、demo/live Compose                       | [启动器](start_all.py)、[CI](.github/workflows/quality.yml)、[第 14 章](docs/chapters/14-validation-deployment验证与部署.md) | Docker、MySQL、OpenSandbox 和云端模型需单独运行验收；不是生产高可用部署 |
 
 ## 尚未纳入本次补充的业务能力
 银行外部征信、企业工商与诉讼数据、真实财报授权接入、授信政策与风险定价、专家审核工作流、监管留痕、贷后监控和生产级权限治理均未实现。采购侧也没有实现真实发票/收货/采购单三单匹配、多仓批次、支付结算与物流供应商集成。
