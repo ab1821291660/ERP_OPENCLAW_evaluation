@@ -125,8 +125,11 @@ def main():
                             'error': 'Run clone --with-erp, then install ERP dependencies using its README.'})
         else:
             for variant, expected in [('baseline', 0), ('regressed', 1)]:
-                arguments = ['-m', 'asu_eval.gate', '--dataset', 'evals/golden.synthetic.json', '--predictions',
-                             f'evals/predictions.{variant}.json', '--baseline', 'evals/baseline.synthetic.json']
+                arguments = ['-m', 'asu_eval.gate',##===================================##===================================##===================================##===================================
+                             '--dataset', 'evals/golden.synthetic.json',
+                             '--predictions',
+                             f'evals/predictions.{variant}.json',
+                             '--baseline', 'evals/baseline.synthetic.json']
                 results.append(run_check('ERP eval ' + variant, directory, arguments, expected, python))
     passed = bool(results) and all(r['passed'] for r in results)
     count = sum(r['tests'] for r in results)
