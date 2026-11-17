@@ -1,0 +1,15 @@
+{
+  "tool_name": "git_status",
+  "source": "mcp://git-server/status",
+  "description": "Read git status from repository",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "repo_path": {
+        "type": "string",
+        "description": "Path to the git repository"
+      }
+    },
+    "required": ["repo_path"]
+  }
+}

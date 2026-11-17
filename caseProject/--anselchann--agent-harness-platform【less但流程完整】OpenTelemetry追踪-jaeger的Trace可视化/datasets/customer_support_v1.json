@@ -1,0 +1,30 @@
+[
+  {
+    "case_id": "support-001",
+    "task_type": "customer_support",
+    "input": {
+      "question": "订单什么时候发货？"
+    },
+    "expected": {
+      "must_include": ["订单", "物流", "发货"],
+      "format": "json"
+    },
+    "metadata": {
+      "difficulty": "easy"
+    }
+  },
+  {
+    "case_id": "support-002",
+    "task_type": "customer_support",
+    "input": {
+      "question": "我想退货，流程是什么？"
+    },
+    "expected": {
+      "must_include": ["退货", "流程"],
+      "format": "text"
+    },
+    "metadata": {
+      "difficulty": "medium"
+    }
+  }
+]
