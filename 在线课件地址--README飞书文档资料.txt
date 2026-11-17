@@ -18,7 +18,7 @@
 ####
 ####
 ####Langfuse
-基于 Harness架构 与 Langfuse 的财务分析智能体及企业级评估平台：：https://my.feishu.cn/docx/CVNAdpzWSo1nYNxe3pIc0ZFan8g  【无密码】
+【文档langfuse】基于 Harness架构 与 Langfuse 的财务分析智能体及企业级评估平台：：https://my.feishu.cn/docx/CVNAdpzWSo1nYNxe3pIc0ZFan8g  【无密码】
 
 
 

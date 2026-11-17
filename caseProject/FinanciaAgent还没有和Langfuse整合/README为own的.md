@@ -10,10 +10,11 @@
 bili的4个的langfuse--的视频
 ##
 5、复杂任务的Planning能力
-----【简单干完--aiHire项目】
 ----面试题干完git的----
-【代码】FinanciaAgent还没有和Langfuse整合的代码
-【文档langfuse】https://my.feishu.cn/docx/CVNAdpzWSo1nYNxe3pIc0ZFan8g 文档
+【简单干完--aiHire项目】
+
+
+
 
 
 ##=================================== ##===================================
