@@ -139,8 +139,9 @@ def register_basic_harness_profile() -> None:
 def build_agent(*, checkpointer: AsyncSqliteSaver, store: AsyncSqliteStore):
     """组装主 Agent 与两个只使用显式业务工具的 SubAgent。"""
     settings = get_settings()
-    register_basic_harness_profile()##===================================
+    register_basic_harness_profile()##===================================##===================================##===================================
     main_model = build_model()
+
 
     # researcher 直接查询已导入的 FinQA SQLite；不能调用计算工具。
     researcher = {
@@ -175,26 +176,31 @@ def build_agent(*, checkpointer: AsyncSqliteSaver, store: AsyncSqliteStore):
         ],
     }
 
+
     # reviewer 只能使用安全计算工具，根据主 Agent 交接的数据进行独立复核。
-    reviewer = {"name": "reviewer", "description": "复核财务公式、计算结果、年份、单位及证据引用。",
-                "system_prompt": REVIEWER_SYSTEM_PROMPT, "tools": [safe_calculate], "middleware": [
-            ModelCallLimitMiddleware(
-                run_limit=settings.reviewer_max_model_calls,
-                exit_behavior="end",
-            ),
-            ToolCallLimitMiddleware(
-                tool_name="safe_calculate",
-                run_limit=settings.reviewer_max_calculations,
-                exit_behavior="error",
-            ),
-        ], "model": build_reviewer_model()}
-
-
+    reviewer = {"name": "reviewer",
+                "description": "复核财务公式、计算结果、年份、单位及证据引用。",
+                "system_prompt": REVIEWER_SYSTEM_PROMPT,
+                "tools": [safe_calculate],
+                "middleware": [
+                    ModelCallLimitMiddleware(
+                        run_limit=settings.reviewer_max_model_calls,
+                        exit_behavior="end",
+                    ),
+                    ToolCallLimitMiddleware(
+                        tool_name="safe_calculate",
+                        run_limit=settings.reviewer_max_calculations,
+                        exit_behavior="error",
+                    ),
+               ],
+                "model": build_reviewer_model()}##===================================
     # if settings.reviewer_model:
     #     reviewer_provider = settings.reviewer_model_provider.strip().lower()
     #     if reviewer_provider not in {"", "deepseek"}:
     #         raise RuntimeError("This agent factory supports only DeepSeek reviewer models")
     #     reviewer["model"] = build_model(model=settings.reviewer_model)
+
+
 
     return create_deep_agent(
         model=main_model,
@@ -213,8 +219,6 @@ def build_agent(*, checkpointer: AsyncSqliteSaver, store: AsyncSqliteStore):
         store=store,
         system_prompt=MAIN_SYSTEM_PROMPT
     )
-
-
 async def initialize_agent_runtime() -> None:
     """初始化相关的资源，并创建主Agent"""
     settings = get_settings()
@@ -240,7 +244,7 @@ async def initialize_agent_runtime() -> None:
             )
             await checkpointer.setup()
             await store.setup()
-            agent = build_agent(checkpointer=checkpointer, store=store)##===================================
+            agent = build_agent(checkpointer=checkpointer, store=store)##===================================##===================================
         except Exception:
             await stack.aclose()  # 释放资源
             raise
@@ -251,6 +255,8 @@ async def initialize_agent_runtime() -> None:
         log_event(logger, "agent_runtime_initialized", graph_type=type(agent).__name__)
 
 
+
+def ________():pass
 def get_agent():
     """取得已初始化的 Agent 图，供 HTTP 和 SSE 服务层调用。"""
     if _agent is None:
