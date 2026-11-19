@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 _FINQA_IDENTIFIER = re.compile(
     r"[A-Za-z0-9._-]+/\d{4}/[A-Za-z0-9._-]+\.pdf-\d+(?:#q\d+)?"
 )
-def build_agent_config(payload: AgentRequest) -> dict:
+def build_agent_config(payload: AgentRequest) -> dict:##===================================
     """只有用户原文实际包含精确标识时才注入，不猜测数据分区。"""
     configurable = {"thread_id": payload.session_id}
     match = _FINQA_IDENTIFIER.search(payload.question)
@@ -80,7 +80,7 @@ async def run_events(payload: AgentRequest, control: RunControl) -> AsyncIterato
             "human_message_id": human.id,
         }}
         await touch_session(payload.session_id, payload.question, payload.question)##===================================
-        async with aclosing(graph_events(human, config, control.cancel)) as events:##===================================##===================================##===================================
+        async with aclosing(graph_events(human, config, control.cancel)) as events:##===================================##===================================##===================================##===================================
             async for event in events:
                 if event["event"] in {"tool_start", "tool_result", "agent_start", "agent_end"}:
                     log_event(
