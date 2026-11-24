@@ -8,7 +8,7 @@ from uuid import uuid4
 
 from langchain_core.messages import BaseMessage
 
-from app.agent_factory import get_agent
+from app.agent_factory import get_agent##===================================##===================================##===================================##===================================
 from app.config import get_settings
 from app.session_store import message_text
 
@@ -152,7 +152,6 @@ async def buffered_events(events: AsyncIterator[dict]) -> AsyncIterator[str]:
     settings = get_settings()
     queue: asyncio.Queue[Any] = asyncio.Queue(maxsize=settings.sse_queue_size)
     sentinel = object()
-
     async def produce() -> None:
         try:
             async with aclosing(events):
@@ -162,9 +161,11 @@ async def buffered_events(events: AsyncIterator[dict]) -> AsyncIterator[str]:
             # 断连时消费者已停止，不能让取消任务卡在满队列的 put 中。
             if not asyncio.current_task().cancelling():
                 await queue.put(sentinel)
-
     producer = asyncio.create_task(produce())
     try:
+
+
+
         while True:
             try:
                 event = await asyncio.wait_for(queue.get(), timeout=settings.sse_heartbeat_seconds)
@@ -174,7 +175,7 @@ async def buffered_events(events: AsyncIterator[dict]) -> AsyncIterator[str]:
             if event is sentinel:
                 await producer
                 break
-            yield sse_event(event["event"], event["data"])
+            yield sse_event(event["event"], event["data"])##===================================
     finally:
         producer.cancel()
         with suppress(asyncio.CancelledError):

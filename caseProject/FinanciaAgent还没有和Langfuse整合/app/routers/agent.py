@@ -30,8 +30,8 @@ async def prepare(payload: AgentRequest):
 async def stream_agent(payload: AgentRequest) -> StreamingResponse:
     control = await prepare(payload)
     return StreamingResponse(
-        buffered_events(##sse##===================================
-             run_events(payload, control)),##===================================
+        buffered_events(##见app.streaming##===================================
+                run_events(payload, control)),##见app.services##===================================
         media_type="text/event-stream",
         headers={"Cache-Control": "no-cache, no-transform", "X-Accel-Buffering": "no"},
         # 如果响应尚未消费生成器就断开，仍释放已经登记的会话占用。
@@ -41,6 +41,6 @@ async def stream_agent(payload: AgentRequest) -> StreamingResponse:
 async def invoke_agent(payload: AgentRequest) -> dict:
     control = await prepare(payload)
     try:
-        return await run_agent(payload, control)##===================================
+        return await run_agent(payload, control)##见app.services--run_agent里面调run_events##===================================
     except RuntimeError as exc:
         raise HTTPException(status_code=503, detail=str(exc)) from exc
