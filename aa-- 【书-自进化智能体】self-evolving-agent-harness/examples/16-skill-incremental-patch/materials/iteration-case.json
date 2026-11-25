@@ -1,0 +1,1135 @@
+{
+  "recorded_on": "2026-11-15",
+  "execution": "saved_online_model_run_with_native_hermes_tools",
+  "data": "Existing constructed east/west/single scenes; not production incidents.",
+  "stages": {
+    "origin": {
+      "skill": "---\nname: oncall-alert-triage\ndescription: 只读调查单条服务告警，核对指标、日志和对应组件的当前状态。\n---\n# 单条告警调查\n1. 确认服务、告警时段和影响范围。\n2. 核对当前指标与日志，不凭告警标题直接下结论。\n3. 用只读探测确认可疑组件，区分观察到的事实和待确认部分。\n4. 汇报影响与当前依据，不执行恢复或改配置。\n字段与工具用法见 references/alert-tools.md。\n",
+      "investigation": {
+        "method_sha256": "64dc0ab41d325712dfabba57a9db40310ccd863e16757671fc2638a60d6abadd",
+        "history_at_start": 0,
+        "loaded_method": true,
+        "queries": [
+          {
+            "tool_call_id": "call_b8177270943241cb93b16408",
+            "name": "investigate",
+            "args": {
+              "action": "alerts",
+              "case": "east"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "east",
+              "result": [
+                {
+                  "service": "orders-e",
+                  "instance": "orders-e-1",
+                  "at": "10:00:02",
+                  "signal": "latency"
+                },
+                {
+                  "service": "billing-e",
+                  "instance": "billing-e-2",
+                  "at": "10:00:04",
+                  "signal": "error_rate"
+                },
+                {
+                  "service": "search-e",
+                  "instance": "search-e-1",
+                  "at": "10:00:03",
+                  "signal": "queue_depth"
+                }
+              ]
+            }
+          },
+          {
+            "tool_call_id": "call_16a894c083e548afa6c9aede",
+            "name": "investigate",
+            "args": {
+              "action": "topology",
+              "case": "east"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "east",
+              "result": {
+                "orders-e": [
+                  "storage-e"
+                ],
+                "billing-e": [
+                  "storage-e"
+                ],
+                "search-e": [
+                  "queue-e"
+                ]
+              }
+            }
+          },
+          {
+            "tool_call_id": "call_31b89e4e7ae145eb95e43d98",
+            "name": "investigate",
+            "args": {
+              "action": "trace",
+              "case": "east"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "east",
+              "result": [
+                {
+                  "caller": "orders-e",
+                  "dependency": "storage-e",
+                  "direction": "storage-e -> orders-e",
+                  "at": "10:00:01",
+                  "error": "dependency_timeout"
+                },
+                {
+                  "caller": "billing-e",
+                  "dependency": "storage-e",
+                  "direction": "storage-e -> billing-e",
+                  "at": "10:00:03",
+                  "error": "connection_refused"
+                },
+                {
+                  "caller": "search-e",
+                  "dependency": "queue-e",
+                  "direction": "queue-e -> search-e",
+                  "at": "10:00:02",
+                  "error": "consumer_stalled"
+                }
+              ]
+            }
+          },
+          {
+            "tool_call_id": "call_b44ea134dfa0442b9bc9c466",
+            "name": "investigate",
+            "args": {
+              "action": "metrics",
+              "case": "east",
+              "target": "orders-e"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "east",
+              "result": {
+                "service": "orders-e",
+                "signal": "latency",
+                "before": 1,
+                "during": 20
+              }
+            }
+          },
+          {
+            "tool_call_id": "call_3e4545220a964a46bc04187f",
+            "name": "investigate",
+            "args": {
+              "action": "metrics",
+              "case": "east",
+              "target": "billing-e"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "east",
+              "result": {
+                "service": "billing-e",
+                "signal": "error_rate",
+                "before": 1,
+                "during": 20
+              }
+            }
+          },
+          {
+            "tool_call_id": "call_7eca3750ecdb45f78b59c66b",
+            "name": "investigate",
+            "args": {
+              "action": "metrics",
+              "case": "east",
+              "target": "search-e"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "east",
+              "result": {
+                "service": "search-e",
+                "signal": "queue_depth",
+                "before": 1,
+                "during": 20
+              }
+            }
+          },
+          {
+            "tool_call_id": "call_c44f653f39f64c4196974b84",
+            "name": "investigate",
+            "args": {
+              "action": "log",
+              "case": "east",
+              "target": "orders-e"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "east",
+              "result": [
+                "10:00:01 dependency timeout: storage-e"
+              ]
+            }
+          },
+          {
+            "tool_call_id": "call_6915baafbd0d468b94e25740",
+            "name": "investigate",
+            "args": {
+              "action": "log",
+              "case": "east",
+              "target": "billing-e"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "east",
+              "result": [
+                "10:00:03 connection refused: storage-e"
+              ]
+            }
+          },
+          {
+            "tool_call_id": "call_59cea043c6e64fd2be120065",
+            "name": "investigate",
+            "args": {
+              "action": "log",
+              "case": "east",
+              "target": "search-e"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "east",
+              "result": [
+                "10:00:02 consumer stalled: queue-e"
+              ]
+            }
+          },
+          {
+            "tool_call_id": "call_2b0a8c8ad22b432aa5d0b327",
+            "name": "investigate",
+            "args": {
+              "action": "probe",
+              "case": "east",
+              "target": "storage-e"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "east",
+              "result": {
+                "status": "failed",
+                "onset": "09:59:59"
+              }
+            }
+          },
+          {
+            "tool_call_id": "call_1d8577855c144d60b9b5b1d7",
+            "name": "investigate",
+            "args": {
+              "action": "probe",
+              "case": "east",
+              "target": "queue-e"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "east",
+              "result": {
+                "status": "failed",
+                "onset": "10:00:00"
+              }
+            }
+          }
+        ],
+        "final_response": "## 调查结论（east 多实例告警）\n\n**方法**：`oncall-alert-triage` → 确认服务/时段 → 核对指标与日志 → 只读探测依赖组件 → 区分事实与待确认。\n\n**当前告警（3 个服务，3 个实例）**\n| 服务 | 实例 | 时间 | 信号 |\n|---|---|---|---|\n| orders-e | orders-e-1 | 10:00:02 | latency |\n| search-e | search-e-1 | 10:00:03 | queue_depth |\n| billing-e | billing-e-2 | 10:00:04 | error_rate |\n\n**依赖 / 调用链 / 传播方向**\n- `orders-e → storage-e`，传播 `storage-e -> orders-e`，10:00:01 `dependency_timeout`\n- `billing-e → storage-e`，传播 `storage-e -> billing-e`，10:00:03 `connection_refused`\n- `search-e → queue-e`，传播 `queue-e -> search-e`，10:00:02 `consumer_stalled`\n\n**日志**：orders-e 记 `dependency timeout: storage-e`；billing-e 记 `connection refused: storage-e`；search-e 记 `consumer stalled: queue-e`。三条日志的指向与调用链一致，而非各自报自身内部错误。\n\n**探测（当前状态）**\n- `storage-e`：**failed**，onset **09:59:59**\n- `queue-e`：**failed**，onset **10:00:00**\n\n**时间核对**：被依赖组件故障早于所有告警——storage-e 09:59:59、queue-e 10:00:00 均先于 10:00:02–10:00:04 的服务告警，且告警信号（before 1 → during 20）与传播方向自依赖向前扩散一致。\n\n**指标核对**：三服务指标均从 1 恶化到 20，是真实异常，不是误报；但三者异常都可由上游组件失败解释。\n\n**归属判断**\n- **共同故障组 A**：`storage-e` 失败（09:59:59）→ orders-e、billing-e 的 latency/error_rate 告警同源（依赖相同、错误同为连向 storage-e 的超时/拒连）。orders-e 与 billing-e 属同一故障，**不应分别调查**。\n- **独立故障组 B**：`search-e` 的 queue_depth 异常指向 `queue-e` 失败（10:00:00），与 storage-e 链路无依赖、无调用关系，**需与 A 组分开调查**。\n\n**未证实/未知**：两个组件内部故障机理均不明确（探测只给 failed 与 onset，无内部原因），但这不影响已确认的归属，故不将 orders-e / billing-e / search-e 列为 unresolved。仅有 3 条告警，无其他无法归属的服务。\n\n```json\n{\n  \"groups\": [\n    {\n      \"services\": [\"orders-e\", \"billing-e\"],\n      \"cause_component\": \"storage-e\"\n    },\n    {\n      \"services\": [\"search-e\"],\n      \"cause_component\": \"queue-e\"\n    }\n  ],\n  \"unresolved_services\": [],\n  \"note\": \"证据：topology 显示 orders-e/billing-e 均依赖 storage-e，search-e 依赖 queue-e；trace 传播方向为 storage-e->orders-e(10:00:01 dependency_timeout)、storage-e->billing-e(10:00:03 connection_refused)、queue-e->search-e(10:00:02 consumer_stalled)；各服务日志指向同一外部组件；metrics 三服务均 before=1/during=20，真实恶化；probe 显示 storage-e failed(onset 09:59:59)、queue-e failed(onset 10:00:00)，均早于 10:00:02-10:00:04 的服务告警。归属：orders-e 与 billing-e 同源为 storage-e 故障；search-e 独立源自 queue-e 故障。剩余未知：storage-e 与 queue-e 内部的故障机理未查明（探测仅返回 failed 与 onset，无内部原因），但组件归属已由依赖+调用链+探测确认。\"\n}\n```",
+        "checks": {
+          "business": true,
+          "structured_answer": true
+        }
+      }
+    },
+    "candidate": {
+      "skill": "---\nname: oncall-alert-triage\ndescription: 只读调查服务告警；先判单条或多条，多告警核对时间线、依赖、调用链与探测区分归属。\n---\n# 服务告警调查（只读）\n\n## 0. 先判断：单条告警还是多告警\n先列当前告警，得到服务/实例/时间/信号。据此分流：\n- **单条告警**：走下面「单告警路径」。\n- **多告警**（多服务或多实例）：走「多告警路径」。\n不要因为同期出现、名称相似或拓扑上有共同依赖就直接归为同一故障——这些都只是待验证线索。\n\n## 单告警路径\n1. 确认服务、告警时段和影响范围。\n2. 核对当前指标与日志，不凭告警标题直接下结论。\n3. 用只读探测确认可疑组件，区分观察到的事实和待确认部分。\n4. 汇报影响与当前依据，不执行恢复或改配置。\n\n## 多告警路径\n1. 汇总各告警的服务、实例、时间与信号，建立时间线，判断谁先发生。\n2. 用拓扑与调用链确定服务间的依赖关系和传播方向，定位被依赖的候选组件。\n3. 用只读探测逐一核对候选组件的**当前状态**；未探测到组件异常或返回未知前，不得仅凭共同依赖或时间接近认定为共同故障。\n4. 归属判定：\n   - 多条告警的错误指向同一被依赖组件、且该组件探测为异常 → 视为**共同故障**，归为一组。\n   - 告警各自指向不同组件、依赖链互不相关 → **独立故障**，需分别调查。\n   - 同期出现但归属未证实 → 列为**未知**，不得并入已确认分组。\n5. 汇报影响、分组依据与剩余未知，不执行恢复或改配置。\n\n字段与工具用法见 references/alert-tools.md。\n",
+      "west": {
+        "method_sha256": "080a48fa5654e45106596eddbd2cf9964fefcb46a3270cb47377304dbd100ed6",
+        "history_at_start": 0,
+        "loaded_method": true,
+        "queries": [
+          {
+            "tool_call_id": "call_722bea394b854028b7d8e6f9",
+            "name": "investigate",
+            "args": {
+              "action": "alerts",
+              "case": "west"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "west",
+              "result": [
+                {
+                  "service": "orders-w",
+                  "instance": "orders-w-1",
+                  "at": "10:00:02",
+                  "signal": "latency"
+                },
+                {
+                  "service": "billing-w",
+                  "instance": "billing-w-2",
+                  "at": "10:00:04",
+                  "signal": "error_rate"
+                },
+                {
+                  "service": "search-w",
+                  "instance": "search-w-1",
+                  "at": "10:00:03",
+                  "signal": "queue_depth"
+                }
+              ]
+            }
+          },
+          {
+            "tool_call_id": "call_b14e70c4ebf8441ebe18c930",
+            "name": "investigate",
+            "args": {
+              "action": "topology",
+              "case": "west"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "west",
+              "result": {
+                "orders-w": [
+                  "storage-w"
+                ],
+                "billing-w": [
+                  "storage-w"
+                ],
+                "search-w": [
+                  "queue-w"
+                ]
+              }
+            }
+          },
+          {
+            "tool_call_id": "call_45c9f29ae9f1494a800790b3",
+            "name": "investigate",
+            "args": {
+              "action": "trace",
+              "case": "west"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "west",
+              "result": [
+                {
+                  "caller": "orders-w",
+                  "dependency": "storage-w",
+                  "direction": "storage-w -> orders-w",
+                  "at": "10:00:01",
+                  "error": "dependency_timeout"
+                },
+                {
+                  "caller": "billing-w",
+                  "dependency": "storage-w",
+                  "direction": "storage-w -> billing-w",
+                  "at": "10:00:03",
+                  "error": "connection_refused"
+                },
+                {
+                  "caller": "search-w",
+                  "dependency": "queue-w",
+                  "direction": "queue-w -> search-w",
+                  "at": "10:00:02",
+                  "error": "consumer_stalled"
+                }
+              ]
+            }
+          },
+          {
+            "tool_call_id": "call_5d6a819f478e41e1aaaa8f1c",
+            "name": "investigate",
+            "args": {
+              "action": "probe",
+              "case": "west",
+              "target": "storage-w"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "west",
+              "result": {
+                "status": "failed",
+                "onset": "09:59:59"
+              }
+            }
+          },
+          {
+            "tool_call_id": "call_d4a06cc1169c45f7ae35f5c8",
+            "name": "investigate",
+            "args": {
+              "action": "probe",
+              "case": "west",
+              "target": "queue-w"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "west",
+              "result": {
+                "status": "unknown",
+                "onset": null
+              }
+            }
+          },
+          {
+            "tool_call_id": "call_d743b4fa94f74248b0800fe0",
+            "name": "investigate",
+            "args": {
+              "action": "metrics",
+              "case": "west",
+              "target": "orders-w"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "west",
+              "result": {
+                "service": "orders-w",
+                "signal": "latency",
+                "before": 1,
+                "during": 20
+              }
+            }
+          },
+          {
+            "tool_call_id": "call_82f1ba80a1f44fa494023b11",
+            "name": "investigate",
+            "args": {
+              "action": "metrics",
+              "case": "west",
+              "target": "billing-w"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "west",
+              "result": {
+                "service": "billing-w",
+                "signal": "error_rate",
+                "before": 1,
+                "during": 20
+              }
+            }
+          },
+          {
+            "tool_call_id": "call_e759d3402f8d45a2a843fb29",
+            "name": "investigate",
+            "args": {
+              "action": "metrics",
+              "case": "west",
+              "target": "search-w"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "west",
+              "result": {
+                "service": "search-w",
+                "signal": "queue_depth",
+                "before": 1,
+                "during": 20
+              }
+            }
+          },
+          {
+            "tool_call_id": "call_d3ebfc93530944119953af0a",
+            "name": "investigate",
+            "args": {
+              "action": "log",
+              "case": "west",
+              "target": "orders-w"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "west",
+              "result": [
+                "10:00:01 dependency timeout: storage-w"
+              ]
+            }
+          },
+          {
+            "tool_call_id": "call_5fe9e410509b4220b553dfe8",
+            "name": "investigate",
+            "args": {
+              "action": "log",
+              "case": "west",
+              "target": "billing-w"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "west",
+              "result": [
+                "10:00:03 connection refused: storage-w"
+              ]
+            }
+          },
+          {
+            "tool_call_id": "call_7a953762030a4e67bbd4feaf",
+            "name": "investigate",
+            "args": {
+              "action": "log",
+              "case": "west",
+              "target": "search-w"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "west",
+              "result": [
+                "10:00:02 consumer stalled: queue-w"
+              ]
+            }
+          }
+        ],
+        "final_response": "# West 多告警调查结论\n\n## 时间线与影响\n| 时间 | 服务 | 信号 | 指标(前→中) | 日志/调用链指向 |\n|---|---|---|---|---|\n| 10:00:02 | orders-w | latency | 1→20 | dependency timeout: **storage-w** (10:00:01) |\n| 10:00:04 | billing-w | error_rate | 1→20 | connection refused: **storage-w** (10:00:03) |\n| 10:00:03 | search-w | queue_depth | 1→20 | consumer stalled: **queue-w** (10:00:02) |\n\n## 归属判定\n- **共同故障组 (storage-w)**：orders-w 与 billing-w 均依赖 storage-w，两者的 trace 传播方向均为 `storage-w -> 服务`，错误都指向 storage-w，日志也指向 storage-w。探测 storage-w：`status=failed, onset=09:59:59` —— 组件异常且 onset 早于两条服务告警，支持其为被依赖端根因。→ 归为一组。\n- **独立故障组 (queue-w)**：search-w 依赖 queue-w，trace 方向 `queue-w -> search-w`，错误 `consumer_stalled`，日志指向 queue-w。它不依赖 storage-w，依赖链与上组无关 → **独立故障**。\n  - 但探测 queue-w 返回 `status=unknown, onset=null`：**未证实 queue-w 组件异常**。按方法，未探测到组件异常前不得确认共同/归属故障。因此 search-w 暂不能确认为已确认归属。\n\n## 未确认部分\n- **search-w / queue-w**：调用链与日志一致指向 queue-w，依赖关系清晰，但探测为 unknown，组件当前状态未证实。方法要求「未探测到组件异常或返回未知前，不得仅凭依赖与时间接近认定」，故列为 unresolved。\n- 组件内部机理（storage-w 为何 failed、queue-w 是否真异常）尚不明确，不影响 storage-w 组的确认归属。\n\n```json\n{\n  \"groups\": [\n    {\n      \"services\": [\"orders-w\", \"billing-w\"],\n      \"cause_component\": \"storage-w\"\n    }\n  ],\n  \"unresolved_services\": [\"search-w\"],\n  \"note\": \"evidence: orders-w 与 billing-w 的 trace 方向均为 storage-w -> 服务, 错误 dependency_timeout/connection_refused 及日志均指向 storage-w; probe(storage-w)=failed, onset=09:59:59 早于两条服务告警(10:00:02/10:00:04), 故二者归属共同故障组件 storage-w, 但 storage-w 内部故障机理未查明。search-w 的 trace 方向 queue-w -> search-w, 错误 consumer_stalled, 日志指向 queue-w, 依赖链与 storage-w 组无关, 属独立问题; 但 probe(queue-w)=unknown(onset=null), queue-w 组件当前状态未证实, 无法确认 search-w 归属, 故列为 unresolved。剩余未知: queue-w 是否确实异常及其内部机理, storage-w 内部故障机理。\"\n}\n```",
+        "checks": {
+          "business": true,
+          "structured_answer": true
+        }
+      },
+      "single": {
+        "method_sha256": "080a48fa5654e45106596eddbd2cf9964fefcb46a3270cb47377304dbd100ed6",
+        "history_at_start": 0,
+        "loaded_method": true,
+        "queries": [
+          {
+            "tool_call_id": "call_681c7fdfcc734b96b5456946",
+            "name": "investigate",
+            "args": {
+              "action": "alerts",
+              "case": "single"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "single",
+              "result": [
+                {
+                  "service": "orders-e",
+                  "instance": "orders-e-1",
+                  "at": "10:00:02",
+                  "signal": "latency"
+                }
+              ]
+            }
+          },
+          {
+            "tool_call_id": "call_1ff1ed287a154333b2985e54",
+            "name": "investigate",
+            "args": {
+              "action": "topology",
+              "case": "single"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "single",
+              "result": {
+                "orders-e": [
+                  "storage-e"
+                ]
+              }
+            }
+          },
+          {
+            "tool_call_id": "call_8509d0808f0d4e46a06b0c49",
+            "name": "investigate",
+            "args": {
+              "action": "trace",
+              "case": "single"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "single",
+              "result": [
+                {
+                  "caller": "orders-e",
+                  "dependency": "storage-e",
+                  "direction": "storage-e -> orders-e",
+                  "at": "10:00:01",
+                  "error": "dependency_timeout"
+                }
+              ]
+            }
+          },
+          {
+            "tool_call_id": "call_d846eb8bff934a079584c390",
+            "name": "investigate",
+            "args": {
+              "action": "metrics",
+              "case": "single",
+              "target": "orders-e"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "single",
+              "result": {
+                "service": "orders-e",
+                "signal": "latency",
+                "before": 1,
+                "during": 20
+              }
+            }
+          },
+          {
+            "tool_call_id": "call_6fe5244746404bf38072201f",
+            "name": "investigate",
+            "args": {
+              "action": "log",
+              "case": "single",
+              "target": "orders-e"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "single",
+              "result": [
+                "10:00:01 dependency timeout: storage-e"
+              ]
+            }
+          },
+          {
+            "tool_call_id": "call_a764bfae11cc4258b5e2e53d",
+            "name": "investigate",
+            "args": {
+              "action": "probe",
+              "case": "single",
+              "target": "storage-e"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "single",
+              "result": {
+                "status": "failed",
+                "onset": "09:59:59"
+              }
+            }
+          }
+        ],
+        "final_response": "Evidence is complete and consistent.\n\n**Findings**\n- **One alert**: `orders-e` (instance `orders-e-1`), signal `latency`, at 10:00:02.\n- **Metrics**: `orders-e` latency rose from 1 to 20 during the window — confirms real impact.\n- **Log**: `10:00:01 dependency timeout: storage-e`.\n- **Topology**: `orders-e` depends on `storage-e`.\n- **Trace**: caller `orders-e` → dependency `storage-e`, direction `storage-e -> orders-e`, error `dependency_timeout` at 10:00:01.\n- **Probe `storage-e`**: status `failed`, onset `09:59:59` — earlier than the alert (10:00:02), supporting `storage-e` as the origin, not the victim.\n\n**Attribution**: `orders-e`'s latency is propagated from its dependency `storage-e`, which is independently confirmed failed and whose onset precedes the alert. Single-service grouping is therefore confirmed, with `storage-e` as the cause component. Only-unknown: the internal failure mechanism inside `storage-e` (why it failed) is not established.\n\n```json\n{\n  \"groups\": [\n    {\n      \"services\": [\"orders-e\"],\n      \"cause_component\": \"storage-e\"\n    }\n  ],\n  \"unresolved_services\": [],\n  \"note\": \"single-case: only one alert (orders-e, latency, orders-e-1, 10:00:02). Confirmed by metrics (latency 1->20 during), log ('10:00:01 dependency timeout: storage-e'), topology (orders-e -> storage-e), and trace (caller orders-e, dependency storage-e, direction storage-e -> orders-e, error dependency_timeout at 10:00:01). Probe of storage-e returned status=failed with onset 09:59:59, earlier than the alert, establishing storage-e as the origin rather than a victim. orders-e is thus confirmed attributed to cause_component storage-e. Remaining unknown: the internal failure mechanism within storage-e (why it failed/onset cause) is not determined; this does not change the confirmed attribution.\"\n}\n```",
+        "checks": {
+          "business": true,
+          "structured_answer": true
+        }
+      },
+      "revision_calls": [
+        {
+          "tool_call_id": "call_ff5a586bfb57411786c86380",
+          "name": "skills_list",
+          "args": {},
+          "success": true
+        },
+        {
+          "tool_call_id": "call_aa2b0a00f5bb4b79b7aa3c1a",
+          "name": "skill_view",
+          "args": {
+            "name": "oncall-alert-triage"
+          },
+          "success": true
+        },
+        {
+          "tool_call_id": "call_d9d232413b0e4ad58f24c681",
+          "name": "skill_view",
+          "args": {
+            "name": "oncall-alert-triage",
+            "file_path": "references/alert-tools.md"
+          },
+          "success": true
+        },
+        {
+          "tool_call_id": "call_ca22cca36aff4dc59d450d79",
+          "name": "skill_manage",
+          "args": {
+            "action": "patch",
+            "name": "oncall-alert-triage"
+          },
+          "success": true
+        },
+        {
+          "tool_call_id": "call_a8e171dc706a4294968672d5",
+          "name": "skill_manage",
+          "args": {
+            "action": "write_file",
+            "name": "oncall-alert-triage",
+            "file_path": "references/alert-tools.md"
+          },
+          "success": true
+        },
+        {
+          "tool_call_id": "call_c9273f84e1bb4b4f9ed63019",
+          "name": "skill_view",
+          "args": {
+            "name": "oncall-alert-triage"
+          },
+          "success": true
+        },
+        {
+          "tool_call_id": "call_8f25f38280e041b3a49d709d",
+          "name": "skill_view",
+          "args": {
+            "file_path": "references/alert-tools.md",
+            "name": "oncall-alert-triage"
+          },
+          "success": true
+        }
+      ]
+    },
+    "revision": {
+      "authorship": "reviewer-agent",
+      "skill": "---\nname: oncall-alert-triage\ndescription: 只读调查服务告警；先判单条或多条，多告警核对时间线、依赖、调用链与探测区分归属。\n---\n# 服务告警调查（只读）\n\n## 0. 先判断：单条告警还是多告警\n先列当前告警，得到服务/实例/时间/信号。据此分流：\n- **单条告警**：走下面「单告警路径」。\n- **多告警**（多服务或多实例）：走「多告警路径」。\n不要因为同期出现、名称相似或拓扑上有共同依赖就直接归为同一故障——这些都只是待验证线索。\n\n## 单告警路径\n1. 确认服务、告警时段和影响范围。\n2. 核对当前指标与日志，不凭告警标题直接下结论。\n3. 用只读探测确认可疑组件，区分观察到的事实和待确认部分。\n4. 汇报影响与当前依据，不执行恢复或改配置。\n\n## 多告警路径\n1. 汇总各告警的服务、实例、时间与信号，建立时间线，判断谁先发生。\n2. 用拓扑与调用链确定服务间的依赖关系和传播方向，定位被依赖的候选组件。\n3. 用只读探测逐一核对候选组件的**当前状态**；未探测到组件异常或返回未知前，不得仅凭共同依赖或时间接近认定为共同故障。\n4. 归属判定：\n   - 多条告警的错误指向同一被依赖组件、且该组件探测为异常 → 视为**共同故障**，归为一组。\n   - 告警各自指向不同组件、依赖链互不相关 → 仅作为**分别调查的方向**，不能据此确认独立故障。逐一核对组件异常与归属证据；未证实组件异常或归属时列为未知，不并入已确认分组，也不称已确认独立故障。\n   - 同期出现但归属未证实 → 列为**未知**，不得并入已确认分组。\n5. 汇报影响、分组依据与剩余未知，不执行恢复或改配置。\n\n字段与工具用法见 references/alert-tools.md。\n",
+      "west": {
+        "method_sha256": "5c911d49b0d4f7ec8412b8c1699aaa4516c5351be2d131fcc0a59c5bb86942ae",
+        "history_at_start": 0,
+        "loaded_method": true,
+        "queries": [
+          {
+            "tool_call_id": "call_f4df135765d1445eb580715f",
+            "name": "investigate",
+            "args": {
+              "action": "alerts",
+              "case": "west"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "west",
+              "result": [
+                {
+                  "service": "orders-w",
+                  "instance": "orders-w-1",
+                  "at": "10:00:02",
+                  "signal": "latency"
+                },
+                {
+                  "service": "billing-w",
+                  "instance": "billing-w-2",
+                  "at": "10:00:04",
+                  "signal": "error_rate"
+                },
+                {
+                  "service": "search-w",
+                  "instance": "search-w-1",
+                  "at": "10:00:03",
+                  "signal": "queue_depth"
+                }
+              ]
+            }
+          },
+          {
+            "tool_call_id": "call_c7241dae7a794c45959c4a4c",
+            "name": "investigate",
+            "args": {
+              "action": "topology",
+              "case": "west"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "west",
+              "result": {
+                "orders-w": [
+                  "storage-w"
+                ],
+                "billing-w": [
+                  "storage-w"
+                ],
+                "search-w": [
+                  "queue-w"
+                ]
+              }
+            }
+          },
+          {
+            "tool_call_id": "call_9522fb9199aa4f44a667c13c",
+            "name": "investigate",
+            "args": {
+              "action": "trace",
+              "case": "west"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "west",
+              "result": [
+                {
+                  "caller": "orders-w",
+                  "dependency": "storage-w",
+                  "direction": "storage-w -> orders-w",
+                  "at": "10:00:01",
+                  "error": "dependency_timeout"
+                },
+                {
+                  "caller": "billing-w",
+                  "dependency": "storage-w",
+                  "direction": "storage-w -> billing-w",
+                  "at": "10:00:03",
+                  "error": "connection_refused"
+                },
+                {
+                  "caller": "search-w",
+                  "dependency": "queue-w",
+                  "direction": "queue-w -> search-w",
+                  "at": "10:00:02",
+                  "error": "consumer_stalled"
+                }
+              ]
+            }
+          },
+          {
+            "tool_call_id": "call_0797f794f7674664b80e4828",
+            "name": "investigate",
+            "args": {
+              "action": "metrics",
+              "case": "west",
+              "target": "orders-w"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "west",
+              "result": {
+                "service": "orders-w",
+                "signal": "latency",
+                "before": 1,
+                "during": 20
+              }
+            }
+          },
+          {
+            "tool_call_id": "call_5751d5cecf9f46779005db5a",
+            "name": "investigate",
+            "args": {
+              "action": "metrics",
+              "case": "west",
+              "target": "billing-w"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "west",
+              "result": {
+                "service": "billing-w",
+                "signal": "error_rate",
+                "before": 1,
+                "during": 20
+              }
+            }
+          },
+          {
+            "tool_call_id": "call_9bf5dab408a3468a8fa31a47",
+            "name": "investigate",
+            "args": {
+              "action": "metrics",
+              "case": "west",
+              "target": "search-w"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "west",
+              "result": {
+                "service": "search-w",
+                "signal": "queue_depth",
+                "before": 1,
+                "during": 20
+              }
+            }
+          },
+          {
+            "tool_call_id": "call_0f127a7f3bb74922b4029e87",
+            "name": "investigate",
+            "args": {
+              "action": "probe",
+              "case": "west",
+              "target": "storage-w"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "west",
+              "result": {
+                "status": "failed",
+                "onset": "09:59:59"
+              }
+            }
+          },
+          {
+            "tool_call_id": "call_7b079bc8fb0e48a8a64785f2",
+            "name": "investigate",
+            "args": {
+              "action": "probe",
+              "case": "west",
+              "target": "queue-w"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "west",
+              "result": {
+                "status": "unknown",
+                "onset": null
+              }
+            }
+          },
+          {
+            "tool_call_id": "call_0d698c71aadd45cfac613f29",
+            "name": "investigate",
+            "args": {
+              "action": "log",
+              "case": "west",
+              "target": "orders-w"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "west",
+              "result": [
+                "10:00:01 dependency timeout: storage-w"
+              ]
+            }
+          },
+          {
+            "tool_call_id": "call_efda8421df0a4fc3999279bc",
+            "name": "investigate",
+            "args": {
+              "action": "log",
+              "case": "west",
+              "target": "billing-w"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "west",
+              "result": [
+                "10:00:03 connection refused: storage-w"
+              ]
+            }
+          },
+          {
+            "tool_call_id": "call_1f869a2a39c14a4990efda98",
+            "name": "investigate",
+            "args": {
+              "action": "log",
+              "case": "west",
+              "target": "search-w"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "west",
+              "result": [
+                "10:00:02 consumer stalled: queue-w"
+              ]
+            }
+          }
+        ],
+        "final_response": "## 调查结论（west，多告警）\n\n**时间线**\n- 09:59:59 — `storage-w` 探测 onset（早于全部服务告警）\n- 10:00:01 — orders-w 报 `dependency_timeout: storage-w`\n- 10:00:02 — search-w 报 `consumer_stalled: queue-w`\n- 10:00:03 — billing-w 报 `connection_refused: storage-w`\n- 10:00:02/03/04 — 三条服务告警先后触发\n\n**证据**\n- orders-w(latency) 与 billing-w(error_rate)：拓扑均依赖 `storage-w`，trace 方向均为 `storage-w -> 服务`（传播自依赖端），日志直接指向 storage-w。probe storage-w = **failed**，onset 09:59:59 早于两条告警 → 共同故障，归为一组。\n- search-w(queue_depth)：拓扑依赖 `queue-w`，trace 方向 `queue-w -> search-w`，日志指向 queue-w。但 probe queue-w = **unknown**（onset 为 null），未探测到异常 → 归属未证实，只能列为未知，不得并入已确认分组，也不称已确认独立故障。\n- 各服务指标 during 均升到 20，确认告警真实；三方依赖链互不相关，不能因同期就合并。\n\n```json\n{\n  \"groups\": [\n    {\n      \"services\": [\"orders-w\", \"billing-w\"],\n      \"cause_component\": \"storage-w\"\n    }\n  ],\n  \"unresolved_services\": [\"search-w\"],\n  \"note\": \"已确认：orders-w(latency)、billing-w(error_rate) 的拓扑依赖、trace 传播方向(storage-w -> 服务)与日志(dependency_timeout/connection_refused: storage-w)共同指向 storage-w；probe storage-w=failed，onset 09:59:59 早于 10:00:01/10:00:03 两条服务告警，支持其为共同故障根因。未知：search-w(queue_depth) 线索指向 queue-w(日志 consumer_stalled: queue-w，trace 方向 queue-w -> search-w)，但 probe queue-w=unknown、onset 为空，未证实该组件异常，故未确认归属，单列 unresolved；其与 storage-w 组同期但依赖链无关，不并入。storage-w 内部故障机理、queue-w 是否真实异常均尚不明确。\"\n}\n```",
+        "checks": {
+          "business": true,
+          "structured_answer": true
+        }
+      },
+      "single": {
+        "method_sha256": "5c911d49b0d4f7ec8412b8c1699aaa4516c5351be2d131fcc0a59c5bb86942ae",
+        "history_at_start": 0,
+        "loaded_method": true,
+        "queries": [
+          {
+            "tool_call_id": "call_0659694d6e324bbebea23ceb",
+            "name": "investigate",
+            "args": {
+              "action": "alerts",
+              "case": "single"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "single",
+              "result": [
+                {
+                  "service": "orders-e",
+                  "instance": "orders-e-1",
+                  "at": "10:00:02",
+                  "signal": "latency"
+                }
+              ]
+            }
+          },
+          {
+            "tool_call_id": "call_b62eaa26983b48b7befd2f1a",
+            "name": "investigate",
+            "args": {
+              "action": "metrics",
+              "case": "single",
+              "target": "orders-e"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "single",
+              "result": {
+                "service": "orders-e",
+                "signal": "latency",
+                "before": 1,
+                "during": 20
+              }
+            }
+          },
+          {
+            "tool_call_id": "call_f1813edc99ca4437bd9f434b",
+            "name": "investigate",
+            "args": {
+              "action": "log",
+              "case": "single",
+              "target": "orders-e"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "single",
+              "result": [
+                "10:00:01 dependency timeout: storage-e"
+              ]
+            }
+          },
+          {
+            "tool_call_id": "call_3318f7438c794cd1a37c05ac",
+            "name": "investigate",
+            "args": {
+              "action": "topology",
+              "case": "single"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "single",
+              "result": {
+                "orders-e": [
+                  "storage-e"
+                ]
+              }
+            }
+          },
+          {
+            "tool_call_id": "call_7d50ca55267a4c0f800a0568",
+            "name": "investigate",
+            "args": {
+              "action": "trace",
+              "case": "single"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "single",
+              "result": [
+                {
+                  "caller": "orders-e",
+                  "dependency": "storage-e",
+                  "direction": "storage-e -> orders-e",
+                  "at": "10:00:01",
+                  "error": "dependency_timeout"
+                }
+              ]
+            }
+          },
+          {
+            "tool_call_id": "call_fc6abe65984a41078355453c",
+            "name": "investigate",
+            "args": {
+              "action": "probe",
+              "case": "single",
+              "target": "storage-e"
+            },
+            "receipt": {
+              "success": true,
+              "constructed": true,
+              "read_only": true,
+              "case": "single",
+              "result": {
+                "status": "failed",
+                "onset": "09:59:59"
+              }
+            }
+          }
+        ],
+        "final_response": "## 调查结论（single，单条告警）\n\n**告警**：`orders-e` / `orders-e-1`，10:00:02，signal=latency。\n\n**证据链**：\n| 步骤 | 结果 |\n|---|---|\n| metrics(orders-e) | latency 由 1 → 20（显著升高，确认影响） |\n| log(orders-e) | `10:00:01 dependency timeout: storage-e` |\n| topology | `orders-e → storage-e` |\n| trace | `storage-e -> orders-e`，10:00:01，`dependency_timeout`（依赖端 → 调用端） |\n| probe(storage-e) | **failed，onset 09:59:59**（早于 10:00:01 超时与 10:00:02 告警） |\n\n归属判定：`orders-e` 的延迟超时错误明确指向被依赖组件 `storage-e`；调用链方向为 storage-e → orders-e；探测确认 `storage-e` 当前异常且 onset（09:59:59）早于服务告警，构成根因支持。单条告警，无其他服务需要分组。\n\n```json\n{\n  \"groups\": [\n    {\n      \"services\": [\"orders-e\"],\n      \"cause_component\": \"storage-e\"\n    }\n  ],\n  \"unresolved_services\": [],\n  \"note\": \"证据：orders-e 指标 latency 1→20；日志 10:00:01 dependency timeout: storage-e；topology orders-e→storage-e；trace direction=storage-e -> orders-e, error=dependency_timeout @10:00:01；probe storage-e status=failed, onset=09:59:59（早于告警 10:00:02）。据此确认 orders-e 归于故障组件 storage-e。剩余未知：storage-e 自身故障的内部机理（为何失败）未查明，且本 case 无 storage-e 的 metrics/log 数据可核对，故不记录其内部原因；该未知不影响已确认的归属。仅一条告警，无其他服务，unresolved 为空。\"\n}\n```\n\n只读调查，未执行任何恢复或配置变更。",
+        "checks": {
+          "business": true,
+          "structured_answer": true
+        }
+      }
+    }
+  }
+}
